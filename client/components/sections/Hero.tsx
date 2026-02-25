@@ -32,9 +32,9 @@ const FloatingShapes = () => {
 
 export const Hero = () => {
   return (
-    <section className="relative h-screen w-full flex items-center justify-center overflow-hidden">
-      {/* 3D Background */}
-      <div className="absolute inset-0 z-0">
+    <section className="relative min-h-screen w-full flex items-center justify-start overflow-hidden pt-20 px-6 md:px-20">
+      {/* 3D Background - Subtler as per minimal design */}
+      <div className="absolute inset-0 z-0 opacity-40">
         <Canvas>
           <PerspectiveCamera makeDefault position={[0, 0, 5]} />
           <ambientLight intensity={0.5} />
@@ -45,92 +45,51 @@ export const Hero = () => {
         </Canvas>
       </div>
 
-      {/* Hero Content */}
-      <div className="relative z-10 text-center px-6 max-w-5xl mx-auto">
+      {/* Hero Content - Aligned Left as per image */}
+      <div className="relative z-10 max-w-7xl">
         <motion.div
-          initial={{ opacity: 0, y: 50 }}
-          animate={{ opacity: 1, y: 0 }}
+          initial={{ opacity: 0, x: -50 }}
+          animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
         >
-          <p className="text-primary font-bold tracking-widest uppercase text-sm mb-4">
-            <motion.span
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.1, repeat: Infinity, repeatType: "reverse", repeatDelay: 0.5 }}
-              className="mr-1"
-            >
-              👋
-            </motion.span>
-            My name is Mudavath Kumar
+          <p className="text-muted-foreground font-medium tracking-tight text-lg mb-10 flex items-center gap-2">
+            <span className="text-2xl animate-bounce">👋</span>
+            <span>, my name is <span className="text-foreground font-bold">Mudavath Kumar</span> and I am a</span>
           </p>
-          <h1 className="text-6xl md:text-8xl font-black tracking-tighter leading-none mb-6">
-            <span className="block overflow-hidden">
-              <motion.span
-                initial={{ y: "100%" }}
-                animate={{ y: 0 }}
-                transition={{ duration: 0.8, delay: 0.2 }}
-                className="inline-block"
+
+          <div className="relative mb-8">
+            <h1 className="text-7xl md:text-[160px] font-black tracking-tighter leading-[0.9] flex flex-col">
+              <span className="block text-black dark:text-white">AI Developer</span>
+              <span className="block outline-text">& Developer</span>
+            </h1>
+
+            {/* Circular Arrow Button from image */}
+            <motion.div
+              initial={{ scale: 0, rotate: -45 }}
+              animate={{ scale: 1, rotate: 0 }}
+              transition={{ delay: 0.5, type: "spring" }}
+              className="absolute right-[-20px] md:right-[150px] top-[10%] md:top-[20%] w-16 h-16 md:w-24 md:h-24 border border-black dark:border-white rounded-full flex items-center justify-center hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black transition-all cursor-pointer group"
+            >
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                className="w-8 h-8 md:w-12 md:h-12 group-hover:rotate-45 transition-transform"
               >
-                MUDAVATH
-              </motion.span>
-            </span>
-            <span className="block overflow-hidden outline-text">
-              <motion.span
-                initial={{ y: "100%" }}
-                animate={{ y: 0 }}
-                transition={{ duration: 0.8, delay: 0.3 }}
-                className="inline-block"
-              >
-                KUMAR
-              </motion.span>
-            </span>
-          </h1>
-          
-          <motion.div
+                <path d="M7 17L17 7M17 7H7M17 7V17" strokeLinecap="round" strokeLinejoin="round"/>
+              </svg>
+            </motion.div>
+          </div>
+
+          <motion.p
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ duration: 1, delay: 1 }}
-            className="flex flex-col items-center justify-center gap-2"
+            transition={{ duration: 1, delay: 0.8 }}
+            className="text-lg md:text-xl text-muted-foreground mt-12"
           >
-            <div className="flex gap-2 text-xl md:text-3xl font-bold uppercase tracking-widest text-muted-foreground">
-              <motion.span
-                animate={{ scale: [1, 1.05, 1], color: ["#666", "#000", "#666"] }}
-                transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-              >
-                Full Stack
-              </motion.span>
-              <span className="text-primary">&</span>
-              <motion.span
-                animate={{ scale: [1, 1.05, 1], color: ["#666", "#000", "#666"] }}
-                transition={{ duration: 4, repeat: Infinity, ease: "easeInOut", delay: 2 }}
-              >
-                Developer
-              </motion.span>
-            </div>
-            <p className="text-lg md:text-xl text-muted-foreground max-w-xl mt-4">
-              Crafting immersive digital experiences in Hyderabad, India.
-            </p>
-          </motion.div>
-
-          <motion.div
-            initial={{ opacity: 0, scale: 0.8 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.5, delay: 1.2 }}
-            className="mt-10 flex flex-wrap items-center justify-center gap-6"
-          >
-            <a
-              href="#projects"
-              className="bg-primary text-primary-foreground px-10 py-4 rounded-full text-lg font-bold hover:scale-105 transition-transform shadow-2xl"
-            >
-              View My Work
-            </a>
-            <a
-              href="#contact"
-              className="px-10 py-4 border border-border rounded-full text-lg font-bold hover:bg-muted transition-colors"
-            >
-              Let's Talk
-            </a>
-          </motion.div>
+            based in Hyderabad, India.
+          </motion.p>
         </motion.div>
       </div>
 
@@ -139,13 +98,13 @@ export const Hero = () => {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 2, duration: 1 }}
-        className="absolute bottom-10 left-1/2 -translate-x-1/2"
+        className="absolute bottom-10 left-6 md:left-20"
       >
-        <div className="w-6 h-10 border-2 border-primary rounded-full flex justify-center p-1">
+        <div className="w-6 h-10 border border-muted-foreground rounded-full flex justify-center p-1">
           <motion.div
             animate={{ y: [0, 12, 0] }}
             transition={{ duration: 1.5, repeat: Infinity }}
-            className="w-1.5 h-1.5 bg-primary rounded-full"
+            className="w-1 h-1 bg-muted-foreground rounded-full"
           />
         </div>
       </motion.div>

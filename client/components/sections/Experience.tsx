@@ -6,25 +6,25 @@ gsap.registerPlugin(ScrollTrigger);
 
 const experiences = [
   {
-    title: "Senior Full Stack Developer",
-    company: "Tech Global Solutions",
-    period: "2022 - Present",
-    description: "Leading the development of high-performance web applications using React, Node.js, and AWS. Improved system scalability by 40%.",
-    color: "bg-blue-500",
+    title: "DSA Trainee",
+    company: "SmartInterview",
+    period: "Jun 2025 - Present",
+    description: "Currently undergoing intensive training in data structures, algorithms, and problem-solving. Engaged in hands-on coding challenges and collaborative sessions with mentors to strengthen programming fundamentals.",
+    color: "bg-black",
   },
   {
-    title: "Web Developer",
-    company: "Digital Dynamics",
-    period: "2020 - 2022",
-    description: "Built responsive and interactive user interfaces for various clients. Specialized in animation and performance optimization.",
-    color: "bg-purple-500",
+    title: "Full Stack MERN Intern",
+    company: "Webstack Academy",
+    period: "Nov 2025 - Dec 2025",
+    description: "Designed and developed a full-stack Airbnb-inspired application with listing and booking features using JavaScript and MySQL. Implemented responsive UI with secure authentication flows and built REST APIs.",
+    color: "bg-muted-foreground",
   },
   {
-    title: "Frontend Intern",
-    company: "StartUp Hub",
-    period: "2019 - 2020",
-    description: "Assisted in developing the core product features. Learned modern frontend practices and version control.",
-    color: "bg-pink-500",
+    title: "Full-stack Developer Intern",
+    company: "Edunet Foundation",
+    period: "Apr 2025 - May 2025",
+    description: "Developed and maintained web applications using modern frameworks, enhancing user experience and functionality. Collaborated with cross-functional teams to design and implement scalable backend solutions.",
+    color: "bg-primary",
   },
 ];
 

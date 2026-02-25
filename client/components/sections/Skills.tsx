@@ -12,28 +12,28 @@ import {
 
 const skillCategories = [
   {
-    title: "Frontend",
+    title: "Core Programming",
     icon: <Globe className="w-8 h-8" />,
-    skills: ["React", "TypeScript", "Next.js", "Tailwind", "Three.js", "Framer Motion"],
-    color: "from-blue-500/20 to-cyan-500/20",
+    skills: ["Java", "C", "JavaScript", "DSA", "OOP"],
+    color: "from-blue-500/10 to-cyan-500/10",
   },
   {
-    title: "Backend",
+    title: "Databases",
     icon: <Terminal className="w-8 h-8" />,
-    skills: ["Node.js", "Express", "Python", "PostgreSQL", "MongoDB", "Redis"],
-    color: "from-green-500/20 to-emerald-500/20",
+    skills: ["MongoDB", "MySQL", "Supabase", "Neon", "Firebase"],
+    color: "from-green-500/10 to-emerald-500/10",
   },
   {
-    title: "Design",
-    icon: <Palette className="w-8 h-8" />,
-    skills: ["Figma", "UI/UX", "Adobe CC", "Motion Graphics", "3D Modeling"],
-    color: "from-purple-500/20 to-pink-500/20",
-  },
-  {
-    title: "Tools",
+    title: "Modern Tools",
     icon: <Cpu className="w-8 h-8" />,
-    skills: ["Git", "Docker", "AWS", "CI/CD", "Vercel", "Netlify"],
-    color: "from-orange-500/20 to-yellow-500/20",
+    skills: ["Vibe Coding", "AI IDE's", "Git/Github", "VS Code", "AI Tools"],
+    color: "from-purple-500/10 to-pink-500/10",
+  },
+  {
+    title: "Frameworks",
+    icon: <Zap className="w-8 h-8" />,
+    skills: ["Vite", "GSAP", "REST APIs", "Auth", "Responsive Design"],
+    color: "from-orange-500/10 to-yellow-500/10",
   },
 ];
 

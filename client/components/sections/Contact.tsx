@@ -32,7 +32,7 @@ export const Contact = () => {
                 </div>
                 <div>
                   <p className="text-sm text-muted-foreground uppercase tracking-widest font-bold mb-1">Email</p>
-                  <p className="text-2xl font-bold">kumar@mudavath.dev</p>
+                  <p className="text-2xl font-bold">kc893825@gmail.com</p>
                 </div>
               </div>
 
@@ -52,7 +52,7 @@ export const Contact = () => {
                 </div>
                 <div>
                   <p className="text-sm text-muted-foreground uppercase tracking-widest font-bold mb-1">Phone</p>
-                  <p className="text-2xl font-bold">+91 98765 43210</p>
+                  <p className="text-2xl font-bold">+91 75690 55938</p>
                 </div>
               </div>
             </div>

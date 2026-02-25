@@ -40,61 +40,48 @@ export const Navbar = () => {
       <nav
         className={cn(
           "fixed top-0 left-0 w-full z-50 transition-all duration-300 px-6",
-          isScrolled ? "py-3" : "py-6"
+          isScrolled ? "py-2" : "py-4"
         )}
       >
         <div
           className={cn(
-            "max-w-7xl mx-auto flex items-center justify-between rounded-full px-6 py-2 transition-all duration-500",
-            isScrolled
-              ? "glass dark:glass-dark shadow-lg"
-              : "bg-transparent border-transparent"
+            "max-w-[1400px] mx-auto flex items-center justify-between transition-all duration-500",
+            isScrolled ? "glass dark:glass-dark rounded-full px-6 py-2 shadow-lg" : ""
           )}
         >
-          <Link to="/" className="text-2xl font-bold tracking-tighter group flex items-center gap-2">
-            <svg width="40" height="40" viewBox="0 0 40 40" className="group-hover:rotate-12 transition-transform">
-              <motion.path
-                d="M 10 30 L 20 10 L 30 30"
-                fill="transparent"
-                stroke="currentColor"
-                strokeWidth="3"
-                initial={{ pathLength: 0 }}
-                animate={{ pathLength: 1 }}
-                transition={{ duration: 2, ease: "easeInOut" }}
-              />
-              <motion.path
-                d="M 15 20 L 25 20"
-                fill="transparent"
-                stroke="currentColor"
-                strokeWidth="3"
-                initial={{ pathLength: 0 }}
-                animate={{ pathLength: 1 }}
-                transition={{ duration: 1.5, delay: 0.5, ease: "easeInOut" }}
-              />
-            </svg>
-            <span className="hidden sm:inline-block font-black uppercase">Mudavath.</span>
+          {/* Logo */}
+          <Link to="/" className="text-2xl font-black tracking-tighter flex items-center gap-1 group">
+            <span className="text-black dark:text-white">MK</span>
+            <span className="text-primary group-hover:animate-bounce">.</span>
           </Link>
 
-          {/* Desktop Nav */}
-          <div className="hidden md:flex items-center gap-8">
-            {navLinks.map((link, idx) => (
-              <motion.a
+          {/* Desktop Nav - Centered */}
+          <div className="hidden lg:flex items-center gap-10">
+            {navLinks.map((link) => (
+              <a
                 key={link.name}
                 href={link.href}
-                initial={{ opacity: 0, y: -10 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.1 * idx }}
-                className="text-sm font-bold uppercase tracking-widest hover:text-primary transition-colors relative group"
+                className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors relative group"
               >
                 {link.name}
-                <span className="absolute -bottom-1 left-1/2 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full group-hover:left-0" />
-              </motion.a>
+              </a>
             ))}
+          </div>
+
+          {/* Right Side - Lang & Email */}
+          <div className="hidden lg:flex items-center gap-6">
+            <span className="text-xs font-bold text-muted-foreground uppercase">EN</span>
+            <a
+              href="mailto:kc893825@gmail.com"
+              className="bg-black text-white dark:bg-white dark:text-black px-6 py-2 rounded-full text-xs font-bold hover:scale-105 transition-transform"
+            >
+              kc893825@gmail.com
+            </a>
           </div>
 
           {/* Mobile Toggle */}
           <button
-            className="md:hidden p-2"
+            className="lg:hidden p-2"
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
           >
             {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
@@ -108,7 +95,7 @@ export const Navbar = () => {
               initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 0.95 }}
-              className="md:hidden absolute top-20 left-6 right-6 glass dark:glass-dark rounded-[40px] p-10 shadow-2xl"
+              className="lg:hidden absolute top-16 left-6 right-6 glass dark:glass-dark rounded-[40px] p-10 shadow-2xl"
             >
               <div className="flex flex-col gap-8 items-center">
                 {navLinks.map((link) => (
@@ -121,6 +108,12 @@ export const Navbar = () => {
                     {link.name}
                   </a>
                 ))}
+                <a
+                  href="mailto:kc893825@gmail.com"
+                  className="bg-black text-white px-8 py-3 rounded-full text-sm font-bold"
+                >
+                  kc893825@gmail.com
+                </a>
               </div>
             </motion.div>
           )}
