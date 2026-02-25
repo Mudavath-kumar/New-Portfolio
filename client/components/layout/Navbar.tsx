@@ -50,9 +50,9 @@ export const Navbar = () => {
           )}
         >
           {/* Logo */}
-          <Link to="/" className="text-2xl font-black tracking-tighter flex items-center gap-1 group">
+          <Link to="/" className="text-[24px] font-[800] tracking-tighter flex items-center group">
             <span className="text-black dark:text-white">MK</span>
-            <span className="text-primary group-hover:animate-bounce">.</span>
+            <span className="text-[#e11d48] group-hover:scale-125 transition-transform">.</span>
           </Link>
 
           {/* Desktop Nav - Centered */}

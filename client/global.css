@@ -148,6 +148,15 @@
     -webkit-text-stroke: 1px currentColor;
     color: transparent;
   }
+
+  .outline-text-hero {
+    -webkit-text-stroke: 2px #000;
+    color: transparent;
+  }
+
+  .dark .outline-text-hero {
+    -webkit-text-stroke: 2px #fff;
+  }
 }
 
 /* Lenis Smooth Scroll */
