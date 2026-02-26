@@ -1,29 +1,37 @@
-import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useEffect, useRef } from "react";
 
 gsap.registerPlugin(ScrollTrigger);
 
 const experiences = [
   {
-    title: "DSA Trainee",
-    company: "SmartInterview",
-    period: "Jun 2025 - Present",
-    description: "Currently undergoing intensive training in data structures, algorithms, and problem-solving. Engaged in hands-on coding challenges and collaborative sessions with mentors to strengthen programming fundamentals.",
+    title: "Trainee",
+    company: "Smart Interviews",
+    location: "On-site",
+    period: "May 2025 - Present",
+    description: "Currently working as a trainee at Smart Interviews, focusing on data structures, algorithms, and problem-solving skills development.",
+    responsibilities: [
+      "Participating in intensive training programs focused on data structures and algorithms",
+      "Solving complex coding problems and improving problem-solving skills",
+      "Learning advanced programming concepts and best practices",
+      "Collaborating with peers and mentors to enhance technical knowledge",
+    ],
+    skills: ["Data Structures", "Algorithms", "Problem Solving", "Coding", "Programming"],
     color: "bg-black",
   },
   {
-    title: "Full Stack MERN Intern",
-    company: "Webstack Academy",
-    period: "Nov 2025 - Dec 2025",
-    description: "Designed and developed a full-stack Airbnb-inspired application with listing and booking features using JavaScript and MySQL. Implemented responsive UI with secure authentication flows and built REST APIs.",
-    color: "bg-muted-foreground",
-  },
-  {
-    title: "Full-stack Developer Intern",
+    title: "Full-stack Developer",
     company: "Edunet Foundation",
-    period: "Apr 2025 - May 2025",
-    description: "Developed and maintained web applications using modern frameworks, enhancing user experience and functionality. Collaborated with cross-functional teams to design and implement scalable backend solutions.",
+    location: "Hyderabad, India",
+    period: "March 2025 - Present",
+    description: "Developing a recipe sharing platform at Edunet Foundation, collaborating with team members to enhance user experience.",
+    responsibilities: [
+      "Developed a recipe sharing platform collaborating with team members to enhance user experience",
+      "Implemented innovative features to improve platform functionality and user engagement",
+      "Successfully launched the project, contributing to the growth of the foundation's online presence",
+    ],
+    skills: ["HTML", "CSS", "JavaScript", "React", "Node.js", "MongoDB"],
     color: "bg-primary",
   },
 ];
@@ -72,7 +80,7 @@ export const Experience = () => {
       <div className="max-w-7xl mx-auto">
         <div className="mb-20">
           <h2 className="text-sm font-bold tracking-widest text-primary uppercase mb-2">My Journey</h2>
-          <h3 className="text-5xl md:text-7xl font-black tracking-tighter">EXPERIENCE</h3>
+          <h3 className="text-4xl sm:text-5xl md:text-7xl font-black tracking-tighter">EXPERIENCE</h3>
         </div>
 
         <div ref={triggerRef} className="relative">
@@ -96,10 +104,34 @@ export const Experience = () => {
                 <div className={`w-full md:w-5/12 pl-10 md:pl-0 ${index % 2 === 0 ? "md:pr-10" : "md:pl-10"}`}>
                   <div className="glass dark:glass-dark p-8 rounded-3xl hover:border-primary transition-colors duration-500 group relative overflow-hidden">
                     <div className={`absolute top-0 right-0 w-2 h-full ${exp.color} opacity-20 group-hover:opacity-100 transition-opacity`} />
-                    <span className="text-sm font-bold text-muted-foreground mb-2 block">{exp.period}</span>
-                    <h4 className="text-2xl font-bold mb-1">{exp.title}</h4>
-                    <p className="text-primary font-bold mb-4">{exp.company}</p>
-                    <p className="text-muted-foreground leading-relaxed">{exp.description}</p>
+                    <div className="flex items-start justify-between mb-3">
+                      <div>
+                        <span className="text-xs font-bold text-muted-foreground tracking-widest uppercase">{exp.period}</span>
+                        <h4 className="text-2xl font-bold mt-1 mb-0.5">{exp.title}</h4>
+                        <p className="text-primary font-bold">{exp.company}</p>
+                        <p className="text-xs text-muted-foreground mt-0.5">{exp.location}</p>
+                      </div>
+                    </div>
+                    <p className="text-muted-foreground leading-relaxed mb-5">{exp.description}</p>
+                    <div className="mb-5">
+                      <p className="text-xs font-bold uppercase tracking-wider mb-2 text-foreground">Key Responsibilities</p>
+                      <ul className="space-y-1">
+                        {exp.responsibilities.map((r, i) => (
+                          <li key={i} className="flex items-start gap-2 text-sm text-muted-foreground">
+                            <span className="text-green-500 mt-0.5 flex-shrink-0">✓</span>
+                            {r}
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                    <div>
+                      <p className="text-xs font-bold uppercase tracking-wider mb-2 text-foreground">Skills Applied</p>
+                      <div className="flex flex-wrap gap-2">
+                        {exp.skills.map((s) => (
+                          <span key={s} className="text-[11px] font-semibold px-3 py-1 rounded-full bg-primary/10 text-primary border border-primary/20">{s}</span>
+                        ))}
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>

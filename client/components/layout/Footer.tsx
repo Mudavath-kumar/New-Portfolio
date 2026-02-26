@@ -15,8 +15,8 @@ export const Footer = () => {
 
         <div className="flex flex-col items-center md:items-end gap-6">
           <div className="flex gap-6">
-            <a href="#" className="hover:text-primary transition-colors">LinkedIn</a>
-            <a href="#" className="hover:text-primary transition-colors">GitHub</a>
+            <a href="https://www.linkedin.com/in/mudavath-kumar-mudavath-kumar/" target="_blank" rel="noopener noreferrer" className="hover:text-primary transition-colors">LinkedIn</a>
+            <a href="https://github.com/mudavath-kumar/" target="_blank" rel="noopener noreferrer" className="hover:text-primary transition-colors">GitHub</a>
             <a href="#" className="hover:text-primary transition-colors">Twitter</a>
           </div>
           <p className="text-sm text-muted-foreground">
