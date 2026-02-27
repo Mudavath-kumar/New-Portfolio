@@ -1,5 +1,6 @@
 import { About } from "@/components/sections/About";
 import { Certifications } from "@/components/sections/Certifications";
+import { CodingProfiles } from "@/components/sections/CodingProfiles";
 import { Contact } from "@/components/sections/Contact";
 import { Education } from "@/components/sections/Education";
 import { Experience } from "@/components/sections/Experience";
@@ -15,6 +16,7 @@ export default function Index() {
       <Experience />
       <Projects />
       <Skills />
+      <CodingProfiles />
       <Education />
       <Certifications />
       <Contact />
