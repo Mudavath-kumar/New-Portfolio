@@ -103,6 +103,26 @@ const certs = [
       "https://pub-86684032f5a344d6b52f992207bec1a1.r2.dev/avatar/achievements/8aa93c63-433c-437f-9348-20bc5bb6e6a8.png",
     tag: "AI Ops",
   },
+  {
+    title: "Claude 101 — Certificate of Completion",
+    issuer: "Anthropic",
+    year: "2026",
+    description:
+      "Completed the Claude 101 course by Anthropic, covering core concepts of Claude AI, prompt engineering, and practical applications of large language models.",
+    image:
+      "/certificates/claude-101.png",
+    tag: "AI / Cloud",
+  },
+  {
+    title: "Linguaskill Business — English Proficiency (CEFR B1)",
+    issuer: "Cambridge University Press & Assessment",
+    year: "2025",
+    description:
+      "Achieved CEFR B1 level with an average score of 151 in the Linguaskill Business assessment by Cambridge. Speaking: 158 (B1), Writing: 143 (B1). Demonstrates ability to communicate effectively in professional and business English contexts.",
+    image:
+      "/certificates/cambridge-linguaskill.png",
+    tag: "English",
+  },
 ];
 
 const tagColors: Record<string, string> = {
@@ -116,6 +136,7 @@ const tagColors: Record<string, string> = {
   OpenAI: "bg-emerald-500/15 text-emerald-600 border-emerald-500/30",
   "AI Ops": "bg-violet-500/15 text-violet-600 border-violet-500/30",
   "Full Stack": "bg-indigo-500/15 text-indigo-600 border-indigo-500/30",
+  English: "bg-amber-500/15 text-amber-600 border-amber-500/30",
 };
 
 
