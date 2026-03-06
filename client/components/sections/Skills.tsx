@@ -25,7 +25,7 @@ const skillCategories = [
     color: "from-orange-500/10 to-yellow-500/10",
   },
   {
-    title: "AI Tools & AI Dev",
+    title: "AI Tools",
     icon: <BrainCircuit className="w-8 h-8" />,
     skills: [
       "ChatGPT / GPT Tools",
@@ -34,15 +34,22 @@ const skillCategories = [
       "Cursor AI",
       "Perplexity AI",
       "Clacky AI",
+      "Hugging Face",
+    ],
+    color: "from-purple-500/10 to-pink-500/10",
+  },
+  {
+    title: "AI Development",
+    icon: <Zap className="w-8 h-8" />,
+    skills: [
       "Flowise",
       "Botpress",
-      "Hugging Face",
       "LangChain",
       "Prompt Engineering",
       "AI-assisted Dev",
       "AI IDEs & Vibe Coding",
     ],
-    color: "from-purple-500/10 to-pink-500/10",
+    color: "from-violet-500/10 to-purple-500/10",
   },
   {
     title: "Tools & Platforms",
@@ -94,7 +101,7 @@ export const Skills = () => {
           <h3 className="text-5xl md:text-7xl font-black tracking-tighter">SKILLS & EXPERTISE</h3>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 items-start">
           {skillCategories.map((category, idx) => (
             <motion.div
               key={category.title}

@@ -2,6 +2,10 @@ import { motion, useInView } from "framer-motion";
 import { Award, ExternalLink, X } from "lucide-react";
 import { useRef, useState } from "react";
 
+type Category = "All" | "Participation" | "Appreciation" | "Course" | "Competition" | "Assessment";
+
+const categories: Category[] = ["All", "Participation", "Course", "Competition", "Appreciation", "Assessment"];
+
 const certs = [
   {
     title: "24 Hour Hackathon Drill",
@@ -12,6 +16,7 @@ const certs = [
     image:
       "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Screenshot%202025-08-03%20204246-QgEuh5PS2hU5r92hJd824mU8AKM4QK.png",
     tag: "Hackathon",
+    category: "Participation" as Category,
   },
   {
     title: "Certificate of Excellence — DSA MasterMind",
@@ -22,6 +27,7 @@ const certs = [
     image:
       "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Screenshot%202025-08-03%20204150-KL8Vuy9RWrStDZ9ExrikBNpQO0EKrQ.png",
     tag: "DSA",
+    category: "Competition" as Category,
   },
   {
     title: "Indian Independence Day Quiz 2025",
@@ -32,6 +38,7 @@ const certs = [
     image:
       "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/WhatsApp%20Image%202025-08-03%20at%2020.48.23_8371e830.jpg-QZmuA9qpgprBBC39nlVQ1h5jo4nZrg.jpeg",
     tag: "Quiz",
+    category: "Participation" as Category,
   },
   {
     title: "Building Agents with Vertex AI",
@@ -42,6 +49,7 @@ const certs = [
     image:
       "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Screenshot%202025-08-03%20204323-6y0nsQ6wqBc1rQ4rrsWUOUoxTVDymI.png",
     tag: "AI / Cloud",
+    category: "Course" as Category,
   },
   {
     title: "GDG on Campus Solution Challenge",
@@ -52,6 +60,7 @@ const certs = [
     image:
       "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/WhatsApp%20Image%202025-08-03%20at%2020.48.21_7850ea7a.jpg-4IcSspoWxiFiAePeNhrSXGhYOKwmUB.jpeg",
     tag: "Google",
+    category: "Participation" as Category,
   },
   {
     title: "Web Dev with Python & Django",
@@ -62,6 +71,7 @@ const certs = [
     image:
       "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Screenshot%202025-08-03%20204113-77fspL2nmSycsf4xOFI1VRTN3ep7IZ.png",
     tag: "Django",
+    category: "Course" as Category,
   },
   {
     title: "Microsoft AI Innovators Hub — AI Workshop",
@@ -72,6 +82,7 @@ const certs = [
     image:
       "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Screenshot%202025-08-03%20204132-3ZH69WAELva91WtkalrGO6swqoa8YD.png",
     tag: "Microsoft",
+    category: "Appreciation" as Category,
   },
   {
     title: "OpenAI Academy × NxtWave Regional Buildathon",
@@ -82,6 +93,7 @@ const certs = [
     image:
       "https://pub-86684032f5a344d6b52f992207bec1a1.r2.dev/avatar/achievements/888c4ead-1c71-4553-80d8-121bf2f979bc.jpeg",
     tag: "OpenAI",
+    category: "Participation" as Category,
   },
   {
     title: "Gen AI Exchange Hackathon — Google Cloud & Hack2Skill",
@@ -92,6 +104,7 @@ const certs = [
     image:
       "https://pub-86684032f5a344d6b52f992207bec1a1.r2.dev/avatar/achievements/94f95da8-c6be-4725-871d-3b8de85c23c2.png",
     tag: "AI / Cloud",
+    category: "Participation" as Category,
   },
   {
     title: "Certificate of Appreciation — IntelliCON 2025",
@@ -102,6 +115,7 @@ const certs = [
     image:
       "https://pub-86684032f5a344d6b52f992207bec1a1.r2.dev/avatar/achievements/8aa93c63-433c-437f-9348-20bc5bb6e6a8.png",
     tag: "AI Ops",
+    category: "Appreciation" as Category,
   },
   {
     title: "Claude 101 — Certificate of Completion",
@@ -112,6 +126,7 @@ const certs = [
     image:
       "/certificates/claude-101.png",
     tag: "AI / Cloud",
+    category: "Course" as Category,
   },
   {
     title: "Linguaskill Business — English Proficiency (CEFR B1)",
@@ -122,6 +137,7 @@ const certs = [
     image:
       "/certificates/cambridge-linguaskill.png",
     tag: "English",
+    category: "Assessment" as Category,
   },
   {
     title: "Guide to Vibe Coding in Windsurf",
@@ -132,6 +148,7 @@ const certs = [
     image:
       "/certificates/vibe-coding-windsurf.png",
     tag: "Vibe Coding",
+    category: "Course" as Category,
   },
   {
     title: "Vibe Coding Course",
@@ -142,6 +159,7 @@ const certs = [
     image:
       "/certificates/vibe-coding-simplilearn.png",
     tag: "Vibe Coding",
+    category: "Course" as Category,
   },
 ];
 
@@ -165,6 +183,11 @@ export const Certifications = () => {
   const sectionRef = useRef<HTMLDivElement>(null);
   const isInView = useInView(sectionRef, { once: true, margin: "-80px" });
   const [selected, setSelected] = useState<(typeof certs)[0] | null>(null);
+  const [activeCategory, setActiveCategory] = useState<Category>("All");
+
+  const filteredCerts = activeCategory === "All"
+    ? certs
+    : certs.filter((c) => c.category === activeCategory);
 
   return (
     <section
@@ -192,9 +215,36 @@ export const Certifications = () => {
           <div className="mt-4 h-[3px] w-[60px] bg-black rounded-full" />
         </motion.div>
 
+        {/* Category Filter Tabs */}
+        <motion.div
+          initial={{ opacity: 0, y: 16 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.5, delay: 0.2 }}
+          className="flex flex-wrap gap-3 mb-12"
+        >
+          {categories.map((cat) => (
+            <button
+              key={cat}
+              onClick={() => setActiveCategory(cat)}
+              className={`px-5 py-2.5 rounded-full text-[13px] font-[600] border transition-all duration-300 ${
+                activeCategory === cat
+                  ? "bg-black text-white border-black"
+                  : "bg-white text-[#555] border-black/10 hover:border-black/30 hover:text-black"
+              }`}
+            >
+              {cat}
+              {cat !== "All" && (
+                <span className="ml-1.5 text-[11px] opacity-60">
+                  {certs.filter((c) => c.category === cat).length}
+                </span>
+              )}
+            </button>
+          ))}
+        </motion.div>
+
         {/* Grid — 3 columns on lg, 2 on sm */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-          {certs.map((cert, i) => (
+          {filteredCerts.map((cert, i) => (
             <motion.div
               key={i}
               initial={{ opacity: 0, y: 36 }}
