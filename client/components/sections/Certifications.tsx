@@ -123,6 +123,26 @@ const certs = [
       "/certificates/cambridge-linguaskill.png",
     tag: "English",
   },
+  {
+    title: "Guide to Vibe Coding in Windsurf",
+    issuer: "Analytics Vidhya",
+    year: "2026",
+    description:
+      "Successfully completed the free course 'Guide to Vibe Coding in Windsurf' by Analytics Vidhya, covering AI-assisted development workflows and vibe coding techniques using the Windsurf AI IDE. Certification ID: loszx9ztme.",
+    image:
+      "/certificates/vibe-coding-windsurf.png",
+    tag: "Vibe Coding",
+  },
+  {
+    title: "Vibe Coding Course",
+    issuer: "Simplilearn SkillUp",
+    year: "2026",
+    description:
+      "Completed the Vibe Coding Course by Simplilearn SkillUp, demonstrating initiative and commitment to deepening skills in AI-assisted development and advancing career in modern software engineering. Certificate code: 9925312.",
+    image:
+      "/certificates/vibe-coding-simplilearn.png",
+    tag: "Vibe Coding",
+  },
 ];
 
 const tagColors: Record<string, string> = {
@@ -137,6 +157,7 @@ const tagColors: Record<string, string> = {
   "AI Ops": "bg-violet-500/15 text-violet-600 border-violet-500/30",
   "Full Stack": "bg-indigo-500/15 text-indigo-600 border-indigo-500/30",
   English: "bg-amber-500/15 text-amber-600 border-amber-500/30",
+  "Vibe Coding": "bg-cyan-500/15 text-cyan-600 border-cyan-500/30",
 };
 
 

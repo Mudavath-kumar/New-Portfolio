@@ -1,39 +1,87 @@
 import { motion } from "framer-motion";
-import { 
-  Code2, 
-  Palette, 
-  Terminal, 
-  Cpu, 
-  Globe, 
-  Zap,
-  Layers,
-  Shield
+import {
+    BrainCircuit,
+    Code2,
+    Database,
+    Globe,
+    GraduationCap,
+    Layers,
+    Shield,
+    Wrench,
+    Zap
 } from "lucide-react";
 
 const skillCategories = [
   {
-    title: "Core Programming",
-    icon: <Globe className="w-8 h-8" />,
-    skills: ["Java", "C", "JavaScript", "DSA", "OOP"],
+    title: "Programming Languages",
+    icon: <Code2 className="w-8 h-8" />,
+    skills: ["Java", "C", "JavaScript"],
     color: "from-blue-500/10 to-cyan-500/10",
   },
   {
-    title: "Databases",
-    icon: <Terminal className="w-8 h-8" />,
-    skills: ["MongoDB", "MySQL", "Supabase", "Neon", "Firebase"],
-    color: "from-green-500/10 to-emerald-500/10",
+    title: "Libraries & Frameworks",
+    icon: <Layers className="w-8 h-8" />,
+    skills: ["Vite", "GSAP", "Node.js"],
+    color: "from-orange-500/10 to-yellow-500/10",
   },
   {
-    title: "Modern Tools",
-    icon: <Cpu className="w-8 h-8" />,
-    skills: ["Vibe Coding", "AI IDE's", "Git/Github", "VS Code", "AI Tools"],
+    title: "AI Tools & AI Dev",
+    icon: <BrainCircuit className="w-8 h-8" />,
+    skills: [
+      "ChatGPT / GPT Tools",
+      "Claude AI",
+      "GitHub Copilot",
+      "Cursor AI",
+      "Perplexity AI",
+      "Clacky AI",
+      "Flowise",
+      "Botpress",
+      "Hugging Face",
+      "LangChain",
+      "Prompt Engineering",
+      "AI-assisted Dev",
+      "AI IDEs & Vibe Coding",
+    ],
     color: "from-purple-500/10 to-pink-500/10",
   },
   {
-    title: "Frameworks",
-    icon: <Zap className="w-8 h-8" />,
-    skills: ["Vite", "GSAP", "REST APIs", "Auth", "Responsive Design"],
-    color: "from-orange-500/10 to-yellow-500/10",
+    title: "Tools & Platforms",
+    icon: <Wrench className="w-8 h-8" />,
+    skills: ["Git", "GitHub", "VS Code", "Postman", "Vercel / Netlify", "AI IDEs"],
+    color: "from-slate-500/10 to-gray-500/10",
+  },
+  {
+    title: "Databases",
+    icon: <Database className="w-8 h-8" />,
+    skills: ["MongoDB", "MySQL", "Supabase", "Neon (PostgreSQL)", "Firebase"],
+    color: "from-green-500/10 to-emerald-500/10",
+  },
+  {
+    title: "Web Development",
+    icon: <Globe className="w-8 h-8" />,
+    skills: [
+      "REST API Development",
+      "Auth & Authorization",
+      "Responsive Design",
+      "Web App Development",
+      "CRUD App Design",
+      "API Integration",
+    ],
+    color: "from-teal-500/10 to-cyan-500/10",
+  },
+  {
+    title: "Core CS",
+    icon: <GraduationCap className="w-8 h-8" />,
+    skills: [
+      "Data Structures & Algorithms",
+      "Object-Oriented Programming",
+      "Operating Systems",
+      "DBMS",
+      "Software Engineering",
+      "ML Fundamentals",
+      "Cloud Computing",
+    ],
+    color: "from-rose-500/10 to-red-500/10",
   },
 ];
 
@@ -46,7 +94,7 @@ export const Skills = () => {
           <h3 className="text-5xl md:text-7xl font-black tracking-tighter">SKILLS & EXPERTISE</h3>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {skillCategories.map((category, idx) => (
             <motion.div
               key={category.title}
