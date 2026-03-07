@@ -161,6 +161,17 @@ const certs = [
     tag: "Vibe Coding",
     category: "Course" as Category,
   },
+  {
+    title: "Micro-Certification — Welcome to ServiceNow",
+    issuer: "ServiceNow",
+    year: "2026",
+    description:
+      "Successfully completed certification requirements for Micro-Certification - Welcome to ServiceNow. Issued March 5, 2026. Signed by Jayney Howson, Senior Vice President, Global Learning and Development, ServiceNow.",
+    image:
+      "/certificates/servicenow.png",
+    tag: "Cloud",
+    category: "Course" as Category,
+  },
 ];
 
 const tagColors: Record<string, string> = {
@@ -176,6 +187,7 @@ const tagColors: Record<string, string> = {
   "Full Stack": "bg-indigo-500/15 text-indigo-600 border-indigo-500/30",
   English: "bg-amber-500/15 text-amber-600 border-amber-500/30",
   "Vibe Coding": "bg-cyan-500/15 text-cyan-600 border-cyan-500/30",
+  Cloud: "bg-blue-600/15 text-blue-700 border-blue-600/30",
 };
 
 
