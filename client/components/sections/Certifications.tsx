@@ -8,6 +8,50 @@ const categories: Category[] = ["All", "Participation", "Course", "Competition",
 
 const certs = [
   {
+    title: "SANSAD — National Youth Indian Parliament",
+    issuer: "Public Policy & Governance Society, IIT Kharagpur",
+    year: "2026",
+    description:
+      "Recognised for outstanding participation in Round 1 | Quiz Assessment of SANSAD - National Youth Indian Parliament, organised by Public Policy and Governance Society, IIT Kharagpur.",
+    image:
+      "/certificates/sansad-iit.png",
+    tag: "Quiz",
+    category: "Participation" as Category,
+  },
+  {
+    title: "HackTheRank Online Quiz Event",
+    issuer: "HackerRank",
+    year: "2026",
+    description:
+      "Successfully participated in the HackTheRank online quiz event organized by HackerRank.",
+    image:
+      "/certificates/hacktherank.png",
+    tag: "Quiz",
+    category: "Participation" as Category,
+  },
+  {
+    title: "Apertre Product Submission — GDG Hack2Skill",
+    issuer: "Google Developer Groups × Hack2Skill",
+    year: "2026",
+    description:
+      "Successfully submitted a product under the 'Apertre' track organized by Google Developer Groups and Hack2Skill.",
+    image:
+      "/certificates/apertre.png",
+    tag: "Google",
+    category: "Participation" as Category,
+  },
+  {
+    title: "Smart Interviews Certificate",
+    issuer: "Smart Interviews",
+    year: "2026",
+    description:
+      "Successfully completed the program and achieved certification from Smart Interviews.",
+    image:
+      "/certificates/SmartInterview.webp",
+    tag: "DSA",
+    category: "Course" as Category,
+  },
+  {
     title: "24 Hour Hackathon Drill",
     issuer: "TechIn Community × Eduknox Technologies",
     year: "2025",
@@ -326,6 +370,8 @@ export const Certifications = () => {
             <button
               onClick={() => setSelected(null)}
               className="absolute top-4 right-4 z-10 w-9 h-9 rounded-full bg-black/10 hover:bg-black/20 flex items-center justify-center transition-colors"
+              title="Close modal"
+              aria-label="Close modal"
             >
               <X size={16} />
             </button>

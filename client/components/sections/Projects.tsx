@@ -88,13 +88,7 @@ export const Projects = () => {
       </div>
 
       {/* Carousel track — fade edges */}
-      <div
-        className="relative w-full"
-        style={{
-          maskImage: "linear-gradient(to right, transparent 0%, black 6%, black 94%, transparent 100%)",
-          WebkitMaskImage: "linear-gradient(to right, transparent 0%, black 6%, black 94%, transparent 100%)",
-        }}
-      >
+      <div className="relative w-full projects-mask">
         <div ref={trackRef} className="flex gap-8 px-8 will-change-transform">
           {loopedProjects.map((project, index) => (
             <div
@@ -135,6 +129,8 @@ export const Projects = () => {
                     target="_blank"
                     rel="noopener noreferrer"
                     onClick={(e) => e.stopPropagation()}
+                    title="Open live project"
+                    aria-label={`Open live project: ${project.title}`}
                     className="bg-white text-black px-5 py-2.5 rounded-full flex items-center gap-2 text-sm font-bold hover:bg-primary hover:text-white transition-colors"
                   >
                     Live View <ArrowUpRight size={16} />
@@ -144,6 +140,8 @@ export const Projects = () => {
                     target="_blank"
                     rel="noopener noreferrer"
                     onClick={(e) => e.stopPropagation()}
+                    title="View source code"
+                    aria-label={`View source code for ${project.title}`}
                     className="w-10 h-10 rounded-full border border-white/20 flex items-center justify-center hover:bg-white/10 transition-colors"
                   >
                     <Github size={18} />
