@@ -2,9 +2,9 @@ import { motion, useInView } from "framer-motion";
 import { Award, ExternalLink, X } from "lucide-react";
 import { useRef, useState } from "react";
 
-type Category = "All" | "Participation" | "Appreciation" | "Course" | "Competition" | "Assessment";
+type Category = "All" | "Participation" | "Appreciation" | "Course" | "Competition" | "Assessment" | "Internship";
 
-const categories: Category[] = ["All", "Participation", "Course", "Competition", "Appreciation", "Assessment"];
+const categories: Category[] = ["All", "Participation", "Course", "Competition", "Appreciation", "Assessment", "Internship"];
 
 const certs = [
   {
@@ -216,6 +216,17 @@ const certs = [
     tag: "Cloud",
     category: "Course" as Category,
   },
+  {
+    title: "ServiceNow System Administrator — Internship Certificate",
+    issuer: "ServiceNow",
+    year: "2026",
+    description:
+      "Awarded for successfully completing the ServiceNow System Administrator internship programme. Demonstrates proficiency in administering the Now Platform, configuring ITSM workflows, managing users and roles, and implementing IT service management best practices on the ServiceNow cloud platform.",
+    image:
+      "https://github.com/user-attachments/assets/c51ddd25-ee1a-49e9-b9b3-0a8664bcfa15",
+    tag: "Internship",
+    category: "Internship" as Category,
+  },
 ];
 
 const tagColors: Record<string, string> = {
@@ -232,6 +243,7 @@ const tagColors: Record<string, string> = {
   English: "bg-amber-500/15 text-amber-600 border-amber-500/30",
   "Vibe Coding": "bg-cyan-500/15 text-cyan-600 border-cyan-500/30",
   Cloud: "bg-blue-600/15 text-blue-700 border-blue-600/30",
+  Internship: "bg-[#81b5a1]/20 text-[#3d7a65] border-[#81b5a1]/40",
 };
 
 

@@ -6,6 +6,22 @@ gsap.registerPlugin(ScrollTrigger);
 
 const experiences = [
   {
+    title: "System Administrator Intern",
+    company: "ServiceNow",
+    location: "Remote",
+    period: "March 2026 - Present",
+    description: "Interning as a System Administrator at ServiceNow, gaining hands-on experience with the Now Platform, IT Service Management, and enterprise cloud workflows.",
+    responsibilities: [
+      "Configuring and administering the ServiceNow Now Platform for IT service management workflows",
+      "Managing users, roles, groups, and access controls within the ServiceNow instance",
+      "Building and customising service catalogue items, forms, and business rules",
+      "Implementing ITSM processes including Incident, Problem, and Change Management",
+      "Creating reports and dashboards to monitor platform performance and SLA compliance",
+    ],
+    skills: ["ServiceNow", "ITSM", "ITIL", "Cloud Platforms", "Service Portal", "Business Rules", "Scripting"],
+    color: "bg-[#81b5a1]",
+  },
+  {
     title: "Trainee",
     company: "Smart Interviews",
     location: "On-site",
