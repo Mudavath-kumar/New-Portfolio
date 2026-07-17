@@ -121,11 +121,32 @@ function RootShell({ children }: { children: ReactNode }) {
   );
 }
 
+import { CustomCursor } from "../components/portfolio/CustomCursor";
+
+import { motion, useScroll } from "motion/react";
+
+import { BackToTop } from "../components/portfolio/BackToTop";
+
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
+  const { scrollYProgress } = useScroll();
+
+  useEffect(() => {
+    const savedTheme = localStorage.getItem("theme");
+    if (!savedTheme || savedTheme === "dark") {
+      document.documentElement.classList.add("dark");
+      localStorage.setItem("theme", "dark");
+    } else {
+      document.documentElement.classList.remove("dark");
+    }
+  }, []);
 
   return (
     <QueryClientProvider client={queryClient}>
+      <motion.div className="scroll-progress-bar" style={{ scaleX: scrollYProgress }} />
+      <div className="noise-overlay" />
+      <CustomCursor />
+      <BackToTop />
       {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
       <Outlet />
     </QueryClientProvider>

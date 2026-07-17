@@ -7,6 +7,9 @@ interface Props {
   duration?: number;
   x?: number;
   y?: number;
+  scale?: number;
+  rotate?: number;
+  blur?: number;
   as?: ElementType;
   className?: string;
   style?: React.CSSProperties;
@@ -15,9 +18,12 @@ interface Props {
 export function FadeIn({
   children,
   delay = 0,
-  duration = 0.7,
+  duration = 0.8,
   x = 0,
-  y = 30,
+  y = 35,
+  scale = 0.96,
+  rotate = 0,
+  blur = 8,
   as = "div",
   className,
   style,
@@ -25,12 +31,33 @@ export function FadeIn({
   const MotionTag = motion.create(as as any);
   return (
     <MotionTag
-      initial={{ opacity: 0, x, y }}
-      whileInView={{ opacity: 1, x: 0, y: 0 }}
-      viewport={{ once: true, margin: "50px", amount: 0 }}
-      transition={{ delay, duration, ease: [0.25, 0.1, 0.25, 1] }}
+      initial={{
+        opacity: 0,
+        x,
+        y,
+        scale,
+        rotate,
+        filter: `blur(${blur}px)`,
+      }}
+      whileInView={{
+        opacity: 1,
+        x: 0,
+        y: 0,
+        scale: 1,
+        rotate: 0,
+        filter: "blur(0px)",
+      }}
+      viewport={{ once: true, margin: "-40px", amount: 0.15 }}
+      transition={{
+        delay,
+        duration,
+        ease: [0.16, 1, 0.3, 1],
+      }}
       className={className}
-      style={style}
+      style={{
+        willChange: "transform, opacity, filter",
+        ...style,
+      }}
     >
       {children}
     </MotionTag>

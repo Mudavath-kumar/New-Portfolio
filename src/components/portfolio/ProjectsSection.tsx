@@ -1,77 +1,144 @@
 import { useRef } from "react";
 import { motion, useScroll, useTransform } from "motion/react";
-import { LiveProjectButton } from "./Buttons";
+import { LiveProjectButton, GithubProjectButton } from "./Buttons";
+import { SplitHeading } from "./SplitHeading";
 
 const PROJECTS = [
   {
     n: "01",
     category: "AI & Agriculture",
-    name: "AgriTech AI — Smart Farming",
-    href: "https://github.com/Mudavath-kumar",
-    img1: "https://images.higgs.ai/?default=1&output=webp&url=https%3A%2F%2Fd8j0ntlcm91z4.cloudfront.net%2Fuser_38xzZboKViGWJOttwIXH07lWA1P%2Fhf_20260412_055344_5eff02e0-87a5-41ce-b64f-eb08da8f33db.png&w=1280&q=85",
-    img2: "https://images.higgs.ai/?default=1&output=webp&url=https%3A%2F%2Fd8j0ntlcm91z4.cloudfront.net%2Fuser_38xzZboKViGWJOttwIXH07lWA1P%2Fhf_20260412_055431_11d841fd-8b41-46a5-82e4-b04f2407a7d8.png&w=1280&q=85",
-    img3: "https://images.higgs.ai/?default=1&output=webp&url=https%3A%2F%2Fd8j0ntlcm91z4.cloudfront.net%2Fuser_38xzZboKViGWJOttwIXH07lWA1P%2Fhf_20260412_055451_e317bf2d-28d4-48cc-86b0-6f72f25b6327.png&w=1280&q=85",
+    name: "AgriVision AI – AI-Powered Crop Recommendation System",
+    description: "An intelligent agriculture platform that provides AI-powered crop recommendations, yield prediction, weather intelligence, soil analysis, and market insights using real-time APIs and Supabase, helping farmers make informed and sustainable farming decisions.",
+    live: "https://agri-tech-ai.vercel.app/",
+    github: "https://github.com/Mudavath-kumar/agri-gyan-",
+    img1: "/Project/Agritect/18.07.2026_02.21.33_REC.png",
+    img2: "/Project/Agritect/18.07.2026_02.22.04_REC.png",
+    img3: "/Project/Agritect/18.07.2026_02.23.05_REC.png",
   },
   {
     n: "02",
-    category: "Full Stack",
-    name: "Recipe Sharing Platform",
-    href: "https://github.com/Mudavath-kumar",
-    img1: "https://images.higgs.ai/?default=1&output=webp&url=https%3A%2F%2Fd8j0ntlcm91z4.cloudfront.net%2Fuser_38xzZboKViGWJOttwIXH07lWA1P%2Fhf_20260412_055654_911201c5-36d9-4bc6-bac7-331adfce159f.png&w=1280&q=85",
-    img2: "https://images.higgs.ai/?default=1&output=webp&url=https%3A%2F%2Fd8j0ntlcm91z4.cloudfront.net%2Fuser_38xzZboKViGWJOttwIXH07lWA1P%2Fhf_20260412_055723_5ceda0b8-d9c2-4665-b2e3-83ba19ba76d1.png&w=1280&q=85",
-    img3: "https://images.higgs.ai/?default=1&output=webp&url=https%3A%2F%2Fd8j0ntlcm91z4.cloudfront.net%2Fuser_38xzZboKViGWJOttwIXH07lWA1P%2Fhf_20260412_055753_adc5dcbd-a8e6-49c0-b43a-9b030d835cea.png&w=1280&q=85",
+    category: "Deep Learning",
+    name: "MambaTab – Selective State Space Model for Fraud Detection",
+    description: "A Mamba-inspired Selective State Space Model (SSM) built with PyTorch for efficient credit card fraud detection. The model leverages linear-time sequence modeling, selective state transitions, and explainable AI techniques to accurately identify fraudulent transactions.",
+    github: "https://github.com/Mudavath-kumar/Mini-Project--3-2",
+    img1: "/Project/Mambatab%20Credit/Screenshot%202026-01-06%20100625.png",
+    img2: "/Project/Mambatab%20Credit/Screenshot%202026-01-25%20130353.png",
+    img3: "/Project/Mambatab%20Credit/Screenshot%202026-01-25%20190413.png",
   },
   {
     n: "03",
-    category: "Machine Learning",
-    name: "Fraud Detection System",
-    href: "https://github.com/Mudavath-kumar",
-    img1: "https://images.higgs.ai/?default=1&output=webp&url=https%3A%2F%2Fd8j0ntlcm91z4.cloudfront.net%2Fuser_38xzZboKViGWJOttwIXH07lWA1P%2Fhf_20260412_055759_963cfb0b-4bd1-4b0f-9d0a-09bd6cf95b2f.png&w=1280&q=85",
-    img2: "https://images.higgs.ai/?default=1&output=webp&url=https%3A%2F%2Fd8j0ntlcm91z4.cloudfront.net%2Fuser_38xzZboKViGWJOttwIXH07lWA1P%2Fhf_20260412_060108_438f781a-9846-4dcc-89ab-c4e6cb830f5b.png&w=1280&q=85",
-    img3: "https://images.higgs.ai/?default=1&output=webp&url=https%3A%2F%2Fd8j0ntlcm91z4.cloudfront.net%2Fuser_38xzZboKViGWJOttwIXH07lWA1P%2Fhf_20260412_055818_9d062121-ad7e-46b9-999a-1a6a692ef1ee.png&w=1280&q=85",
+    category: "Full Stack",
+    name: "HomelyHub – Full-Stack Vacation Rental Platform",
+    description: "A MERN-based property booking platform where users can search, book, and review vacation rentals, while hosts manage listings, bookings, and earnings through a dedicated dashboard with secure authentication and responsive design.",
+    live: "https://homelyhub-app.vercel.app/",
+    github: "https://github.com/Mudavath-kumar/Webstack-acadamy-Project",
+    img1: "/Project/Airbnbclone/18.07.2026_02.17.34_REC.png",
+    img2: "/Project/Airbnbclone/18.07.2026_02.18.34_REC.png",
+    img3: "/Project/Airbnbclone/18.07.2026_02.20.25_REC.png",
   },
   {
     n: "04",
     category: "Full Stack",
-    name: "HomelyHub — Airbnb Clone",
-    href: "https://github.com/Mudavath-kumar",
-    img1: "https://images.higgs.ai/?default=1&output=webp&url=https%3A%2F%2Fd8j0ntlcm91z4.cloudfront.net%2Fuser_38xzZboKViGWJOttwIXH07lWA1P%2Fhf_20260412_055344_5eff02e0-87a5-41ce-b64f-eb08da8f33db.png&w=1280&q=85",
-    img2: "https://images.higgs.ai/?default=1&output=webp&url=https%3A%2F%2Fd8j0ntlcm91z4.cloudfront.net%2Fuser_38xzZboKViGWJOttwIXH07lWA1P%2Fhf_20260412_055431_11d841fd-8b41-46a5-82e4-b04f2407a7d8.png&w=1280&q=85",
-    img3: "https://images.higgs.ai/?default=1&output=webp&url=https%3A%2F%2Fd8j0ntlcm91z4.cloudfront.net%2Fuser_38xzZboKViGWJOttwIXH07lWA1P%2Fhf_20260412_055451_e317bf2d-28d4-48cc-86b0-6f72f25b6327.png&w=1280&q=85",
+    name: "Recipe Haven – Full-Stack Recipe Sharing Platform",
+    description: "A MERN-based recipe management application that enables users to securely create, update, delete, and discover recipes with category filtering, JWT authentication, and a responsive user experience.",
+    live: "https://v0-recipe-adding-platform.vercel.app/",
+    github: "https://github.com/Mudavath-kumar/recipe-adding-platform-01",
+    img1: "/Project/Recipe-project/18.07.2026_02.24.20_REC.png",
+    img2: "/Project/Recipe-project/18.07.2026_02.24.50_REC.png",
+    img3: "/Project/Recipe-project/18.07.2026_02.25.35_REC.png",
   },
 ];
+
+function ProjectImage({ src, className, style, parallaxAmount = 20 }: { src: string; className?: string; style?: React.CSSProperties; parallaxAmount?: number }) {
+  const imgRef = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: imgRef,
+    offset: ["start end", "end start"],
+  });
+  const imgY = useTransform(scrollYProgress, [0, 1], [-parallaxAmount, parallaxAmount]);
+
+  return (
+    <div ref={imgRef} className={`overflow-hidden ${className || ""}`} style={style}>
+      <motion.img
+        src={src}
+        alt=""
+        loading="lazy"
+        className="w-full h-full object-cover hover:scale-105"
+        style={{
+          y: imgY,
+          scale: 1.1, // extra scale to prevent parallax gaps
+          transition: "transform 0.7s ease-out",
+        }}
+      />
+    </div>
+  );
+}
 
 function ProjectCard({ p, i, total, progress }: { p: (typeof PROJECTS)[number]; i: number; total: number; progress: any }) {
   const targetScale = 1 - (total - 1 - i) * 0.03;
   const scale = useTransform(progress, [i / total, 1], [1, targetScale]);
+  const cardRef = useRef<HTMLDivElement>(null);
+
   return (
     <div className="h-[85vh] sticky" style={{ top: `${96 + i * 28}px` }}>
       <motion.div
-        style={{ scale, transformOrigin: "top center" }}
-        className="rounded-[40px] sm:rounded-[50px] md:rounded-[60px] border-2 border-[#D7E2EA] p-4 sm:p-6 md:p-8 h-full flex flex-col gap-6"
-        // eslint-disable-next-line react/forbid-dom-props
+        ref={cardRef}
+        style={{
+          scale,
+          transformOrigin: "top center",
+          borderColor: "var(--border-color)",
+          background: "var(--bg-main)",
+        }}
+        className="rounded-[40px] sm:rounded-[50px] md:rounded-[60px] border-2 p-4 sm:p-6 md:p-8 h-full flex flex-col gap-6 transition-shadow duration-500"
+        data-cursor-text="Open"
+        onMouseEnter={(e) => {
+          e.currentTarget.style.borderColor = "var(--accent-color)";
+          e.currentTarget.style.boxShadow = "0 25px 60px rgba(182,0,168,0.1)";
+        }}
+        onMouseLeave={(e) => {
+          e.currentTarget.style.borderColor = "var(--border-color)";
+          e.currentTarget.style.boxShadow = "none";
+        }}
       >
-        <div style={{ background: "#0C0C0C" }} className="h-full flex flex-col gap-6">
+        <div style={{ background: "var(--bg-main)" }} className="h-full flex flex-col gap-6">
           <div className="flex items-center justify-between gap-4 flex-wrap">
             <div className="flex items-center gap-6 flex-wrap">
               <div className="hero-heading font-black leading-none" style={{ fontSize: "clamp(3rem, 10vw, 140px)" }}>
                 {p.n}
               </div>
               <div className="flex flex-col">
-                <span className="text-[#D7E2EA]/60 uppercase tracking-widest text-xs sm:text-sm">{p.category}</span>
-                <span className="text-[#D7E2EA] font-medium uppercase" style={{ fontSize: "clamp(1rem, 2.2vw, 2rem)" }}>{p.name}</span>
+                <span className="uppercase tracking-widest text-xs sm:text-sm" style={{ color: "var(--text-muted)" }}>{p.category}</span>
+                <span className="font-medium uppercase" style={{ fontSize: "clamp(1rem, 2.2vw, 2rem)", color: "var(--text-main)" }}>{p.name}</span>
+                <p className="text-xs sm:text-sm mt-2 max-w-[450px] font-normal leading-relaxed text-balance" style={{ color: "var(--text-muted)" }}>
+                  {p.description}
+                </p>
               </div>
             </div>
-            <LiveProjectButton href={p.href} />
+            <div className="flex items-center gap-3 flex-wrap">
+              {p.live && <LiveProjectButton href={p.live} label="Live Demo" />}
+              {p.github && <GithubProjectButton href={p.github} />}
+            </div>
           </div>
-          <div className="flex-1 grid grid-cols-5 gap-3 sm:gap-4 md:gap-6">
+          <div className="flex-1 grid grid-cols-5 gap-3 sm:gap-4 md:gap-6 overflow-hidden">
             <div className="col-span-2 flex flex-col gap-3 sm:gap-4 md:gap-6">
-              <img src={p.img1} alt="" loading="lazy" className="w-full rounded-[40px] sm:rounded-[50px] md:rounded-[60px] object-cover" style={{ height: "clamp(130px, 16vw, 230px)" }} />
-              <img src={p.img2} alt="" loading="lazy" className="w-full rounded-[40px] sm:rounded-[50px] md:rounded-[60px] object-cover" style={{ height: "clamp(160px, 22vw, 340px)" }} />
+              <ProjectImage
+                src={p.img1}
+                className="rounded-[40px] sm:rounded-[50px] md:rounded-[60px] border border-[var(--border-color)]"
+                style={{ height: "clamp(130px, 16vw, 230px)" }}
+                parallaxAmount={15}
+              />
+              <ProjectImage
+                src={p.img2}
+                className="rounded-[40px] sm:rounded-[50px] md:rounded-[60px] border border-[var(--border-color)]"
+                style={{ height: "clamp(160px, 22vw, 340px)" }}
+                parallaxAmount={25}
+              />
             </div>
-            <div className="col-span-3">
-              <img src={p.img3} alt="" loading="lazy" className="w-full h-full rounded-[40px] sm:rounded-[50px] md:rounded-[60px] object-cover" />
-            </div>
+            <ProjectImage
+              src={p.img3}
+              className="col-span-3 rounded-[40px] sm:rounded-[50px] md:rounded-[60px] border border-[var(--border-color)]"
+              parallaxAmount={20}
+            />
           </div>
         </div>
       </motion.div>
@@ -88,14 +155,16 @@ export function ProjectsSection() {
       id="projects"
       ref={ref}
       className="relative z-10 rounded-t-[40px] sm:rounded-t-[50px] md:rounded-t-[60px] -mt-10 sm:-mt-12 md:-mt-14 px-5 sm:px-8 md:px-10 pt-20 sm:pt-24 md:pt-32 pb-20"
-      style={{ background: "#0C0C0C" }}
+      style={{ background: "var(--bg-main)" }}
     >
-      <h2
-        className="hero-heading font-black uppercase text-center leading-none tracking-tight mb-16 sm:mb-20 md:mb-28"
-        style={{ fontSize: "clamp(3rem, 12vw, 160px)" }}
-      >
-        Project
-      </h2>
+      <div className="max-w-7xl mx-auto mb-16 sm:mb-20 md:mb-28">
+        <SplitHeading
+          text="Projects"
+          className="hero-heading font-black uppercase text-center leading-none tracking-tight"
+          style={{ fontSize: "clamp(3rem, 12vw, 160px)" }}
+          stagger={0.04}
+        />
+      </div>
       <div className="max-w-7xl mx-auto">
         {PROJECTS.map((p, i) => (
           <ProjectCard key={p.n} p={p} i={i} total={PROJECTS.length} progress={scrollYProgress} />
