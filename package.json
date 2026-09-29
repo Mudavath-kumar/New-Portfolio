@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite dev",
-    "build": "vite build",
+    "build": "vite build && node -e \"const fs=require('fs');const src=fs.existsSync('.vercel/output/static')?'.vercel/output/static':(fs.existsSync('.output/public')?'.output/public':null);if(src){fs.cpSync(src,'dist',{recursive:true});console.log('Synced '+src+' to dist for Vercel');}\"",
     "build:dev": "vite build --mode development",
     "preview": "vite preview",
     "lint": "eslint .",
