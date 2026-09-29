@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { ArrowUpRight, Download, Github, Moon, Sun } from "lucide-react";
+import { ArrowUpRight, Download, ExternalLink, Github, LayoutGrid, List as ListIcon, Moon, Sun, X } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -11,24 +11,27 @@ const revenueRescue = "/Project/Resce-Recovery/homepage.png";
 const mambaTab = "/Project/Mambatab Credit/Screenshot 2026-01-25 130353.png";
 const recipeHaven = "/Project/Recipe-project/18.07.2026_02.24.20_REC.png";
 
-// Certificate images — all 17 from public/certificates/
+// Certificate images — all 20 verified from public/certificates/
 const certServiceNow = "/certificates/servicenow.png";
+const certServiceNowIntern = "/certificates/servicenowintern.png";
 const certClaude = "/certificates/claude-101.png";
 const certMcKinsey = "/certificates/mckinsey-forward.png";
+const certIntelliCon = "/certificates/microsofthyd.png";
+const certMicrosoftAi = "/certificates/microsoft hyd.png";
+const certEdunetMern = "/certificates/edunetfoundation.jpg";
+const certPega = "/certificates/pega.png";
+const certNxtWave = "/certificates/nxtwavebuildaton.jpeg";
+const certMasterUnion = "/certificates/masterunion.jpeg";
+const certOpenSourceConnect = "/certificates/opensource.png";
+const certOscg = "/certificates/oscg.png";
 const certSmartInterviews = "/certificates/SmartInterview.webp";
 const certSansad = "/certificates/sansad-iit.png";
-const certHackTheRank = "/certificates/hacktherank.png";
 const certApertre = "/certificates/apertre.png";
+const certHackTheRank = "/certificates/hacktherank.png";
 const certWindsurf = "/certificates/vibe-coding-windsurf.png";
 const certSimplilearn = "/certificates/vibe-coding-simplilearn.png";
 const certCambridge = "/certificates/cambridge-linguaskill.png";
 const certAppliedMarketing = "/certificates/applied-marketing-in-higher-education-and-upskilling-certificate.png";
-const certWhatsApp = "/certificates/WhatsApp Image 2026-06-30 at 7.27.58 PM.jpeg";
-const certScreenshot = "/certificates/Screenshot 2026-04-14 120459.png";
-const certJpg = "/certificates/1743094375173.jpg";
-const certImg = "/certificates/image.png";
-const cert01A = "/certificates/01KRCB6PYHW0EZWM20MH5Q75V3.png";
-const cert01B = "/certificates/01KRCB6TCS84TKKBMYYS0ZZ4DE.png";
 
 const projects = [
   { n: "01", title: "TrustRAG", kind: "AI / RAG", image: trustRag, text: "Five agents cross-examine evidence, measure consensus and expose the reasoning behind every answer.", demo: "https://major-project-trust-aware-consensus.vercel.app/", github: "https://github.com/Mudavath-kumar/MAJOR-PROJECT-Trust-Aware-Consensus-Framework-for-Multi-Agent-RAG" },
@@ -45,7 +48,7 @@ const experience = [
 
 const stats = [
   { value: "150+", label: "DSA PROBLEMS SOLVED" },
-  { value: "17+", label: "CERTIFICATIONS" },
+  { value: "20+", label: "CERTIFICATIONS" },
   { value: "04", label: "FEATURED PROJECTS" },
   { value: "05", label: "AI AGENTS · TRUSTRAG" },
 ];
@@ -79,23 +82,26 @@ const education = [
 ];
 
 const certifications = [
-  { title: "ServiceNow System Administrator", issuer: "ServiceNow", year: "2026", image: certServiceNow },
+  { title: "Certified System Administrator (CSA)", issuer: "ServiceNow", year: "2026", image: certServiceNow },
+  { title: "ServiceNow Virtual Internship Program", issuer: "ServiceNow & SmartBridge (AICTE)", year: "2026", image: certServiceNowIntern },
   { title: "Claude 101", issuer: "Anthropic", year: "2026", image: certClaude },
   { title: "McKinsey Forward Program", issuer: "McKinsey & Company", year: "2026", image: certMcKinsey },
-  { title: "Smart Interviews", issuer: "Smart Interviews", year: "2026", image: certSmartInterviews },
-  { title: "SANSAD — National Youth Indian Parliament", issuer: "SANSAD", year: "2026", image: certSansad },
+  { title: "IntelliCON 2025 Participant", issuer: "Global AI Hyderabad · Microsoft & Grafana", year: "2025", image: certIntelliCon },
+  { title: "Microsoft AI Workshop", issuer: "Microsoft AI Innovators Hub", year: "2025", image: certMicrosoftAi },
+  { title: "Building Modern Web Apps with MERN Stack", issuer: "EY Global Delivery & AICTE (Edunet)", year: "2025", image: certEdunetMern },
+  { title: "Pegasystems National Internship Program", issuer: "Pegasystems & SmartBridge (AICTE)", year: "2026", image: certPega },
+  { title: "OpenAI Academy x NxtWave Regional Buildathon", issuer: "NxtWave & OpenAI Academy", year: "2025", image: certNxtWave },
+  { title: "React Hyderabad BUILDATHON", issuer: "React Hyderabad & Masters' Union", year: "2026", image: certMasterUnion },
+  { title: "AI-Driven Systems for Open Source Collaboration", issuer: "Open Source Connect Global", year: "2026", image: certOpenSourceConnect },
+  { title: "Open Source Connect Global Contributor", issuer: "OSCG · Zulip & NexFellow", year: "2026", image: certOscg },
+  { title: "Smart Interviews Trainee · DSA & Problem Solving", issuer: "Smart Interviews", year: "2026", image: certSmartInterviews },
+  { title: "SANSAD — National Youth Parliament", issuer: "SANSAD", year: "2026", image: certSansad },
+  { title: "Apertre 3.0 Open Source Contribution", issuer: "Resourcio Community", year: "2026", image: certApertre },
   { title: "HackTheRank Online Quiz", issuer: "HackTheRank", year: "2026", image: certHackTheRank },
-  { title: "Apertre Product Submission", issuer: "Apertre", year: "2026", image: certApertre },
-  { title: "Vibe Coding in Windsurf", issuer: "Windsurf", year: "2026", image: certWindsurf },
-  { title: "Vibe Coding in Simplilearn", issuer: "Simplilearn", year: "2026", image: certSimplilearn },
-  { title: "Linguaskill Business · CEFR B1", issuer: "Cambridge", year: "2025", image: certCambridge },
-  { title: "Applied Marketing & Higher Education", issuer: "Certification Body", year: "2026", image: certAppliedMarketing },
-  { title: "Professional Certificate", issuer: "Institute", year: "2026", image: certWhatsApp },
-  { title: "Achievement Certificate", issuer: "Organisation", year: "2026", image: certScreenshot },
-  { title: "Completion Certificate", issuer: "Platform", year: "2026", image: certJpg },
-  { title: "Recognition Award", issuer: "Institute", year: "2026", image: certImg },
-  { title: "Excellence Certificate I", issuer: "Organisation", year: "2026", image: cert01A },
-  { title: "Excellence Certificate II", issuer: "Organisation", year: "2026", image: cert01B },
+  { title: "Vibe Coding in Windsurf", issuer: "Windsurf / Codeium", year: "2026", image: certWindsurf },
+  { title: "Vibe Coding Course", issuer: "Simplilearn SkillUp", year: "2026", image: certSimplilearn },
+  { title: "Linguaskill Business · CEFR B1", issuer: "Cambridge English Assessment", year: "2025", image: certCambridge },
+  { title: "Applied Marketing in Higher Education and Upskilling", issuer: "Jaro Education", year: "2026", image: certAppliedMarketing },
 ];
 
 const profiles = [
@@ -173,6 +179,16 @@ function Portfolio() {
   const certificateTarget = useRef({ x: -800, y: -800 });
   const [dark, setDark] = useState(true);
   const [activeCertificate, setActiveCertificate] = useState<number | null>(null);
+  const [certView, setCertView] = useState<"tiles" | "list">("tiles");
+  const [selectedCert, setSelectedCert] = useState<(typeof certifications)[0] | null>(null);
+
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setSelectedCert(null);
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, []);
 
   useEffect(() => {
     const saved = localStorage.getItem("mk-theme");
@@ -363,8 +379,8 @@ function Portfolio() {
       </section>
 
       <section className="certifications" onPointerLeave={() => setActiveCertificate(null)}>
-        <div className="cert-head reveal"><span>CERTIFICATIONS</span><strong>ALL · 17</strong></div>
-        <div className="cert-list">{certifications.map((item, index) => <div className="cert-row reveal" key={item.title} onPointerEnter={() => setActiveCertificate(index)} onPointerMove={moveCertificatePreview}>
+        <div className="cert-head reveal"><span>CERTIFICATIONS</span><strong>ALL · 20</strong></div>
+        <div className="cert-list">{certifications.map((item, index) => <div className="cert-row" key={item.title} onPointerEnter={() => setActiveCertificate(index)} onPointerMove={moveCertificatePreview}>
           <span>{String(index + 1).padStart(2, "0")}</span><p><span className="cert-title">{item.title}</span><ArrowUpRight className="cert-arrow" aria-hidden="true" /></p><em>{item.issuer}</em><small>{item.year}</small>
         </div>)}</div>
       </section>
