@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { ArrowUpRight, Download, ExternalLink, Github, LayoutGrid, List as ListIcon, Moon, Sun, X } from "lucide-react";
+import { ArrowUp, ArrowUpRight, Check, ChevronLeft, ChevronRight, Copy, Download, ExternalLink, Github, Moon, Send, Sun, X } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -34,10 +34,58 @@ const certCambridge = "/certificates/cambridge-linguaskill.png";
 const certAppliedMarketing = "/certificates/applied-marketing-in-higher-education-and-upskilling-certificate.png";
 
 const projects = [
-  { n: "01", title: "TrustRAG", kind: "AI / RAG", image: trustRag, text: "Five agents cross-examine evidence, measure consensus and expose the reasoning behind every answer.", demo: "https://major-project-trust-aware-consensus.vercel.app/", github: "https://github.com/Mudavath-kumar/MAJOR-PROJECT-Trust-Aware-Consensus-Framework-for-Multi-Agent-RAG" },
-  { n: "02", title: "RevenueRescue AI", kind: "FINTECH / AI", image: revenueRescue, text: "A policy-gated engine that predicts and recovers failed payments with auditable safety controls.", demo: "https://revenue-rescue-ai-omega.vercel.app/", github: "https://github.com/Mudavath-kumar/-RevenueRescue-AI" },
-  { n: "03", title: "MambaTab", kind: "DEEP LEARNING", image: mambaTab, text: "Selective state-space fraud detection across 284,000 transactions, reaching a 0.97 ROC-AUC.", github: "https://github.com/Mudavath-kumar/Mini-Project--3-2" },
-  { n: "04", title: "Recipe Haven", kind: "FULL STACK", image: recipeHaven, text: "A secure MERN platform for creating, curating and discovering everyday recipes.", demo: "https://v0-recipe-adding-platform.vercel.app/", github: "https://github.com/Mudavath-kumar/recipe-adding-platform-01" },
+  {
+    n: "01",
+    title: "TrustRAG",
+    subtitle: "Trust-Aware Multi-Agent Consensus Framework",
+    kind: "AI / MULTI-AGENT RAG",
+    image: trustRag,
+    domain: "trustrag-consensus.vercel.app",
+    text: "Five specialized AI agents cross-examine evidence, evaluate consensus confidence, and eliminate hallucinations with traceable provenance.",
+    metrics: "5 AI Agents · Consensus Voting · 0.94 Faithfulness Score",
+    tags: ["LangChain", "Claude API", "Vector DB", "FastAPI", "React", "Python"],
+    demo: "https://major-project-trust-aware-consensus.vercel.app/",
+    github: "https://github.com/Mudavath-kumar/MAJOR-PROJECT-Trust-Aware-Consensus-Framework-for-Multi-Agent-RAG",
+  },
+  {
+    n: "02",
+    title: "RevenueRescue AI",
+    subtitle: "Autonomous Payment Recovery Engine",
+    kind: "FINTECH / AI AUTOMATION",
+    image: revenueRescue,
+    domain: "revenue-rescue-ai.vercel.app",
+    text: "A policy-gated automation platform that predicts churn risk, retries failed transactions via smart routing, and recovers revenue with audit logs and safety controls.",
+    metrics: "Auditable Risk Engine · Smart Retries · Enterprise UX",
+    tags: ["Next.js", "TypeScript", "AI Rules Engine", "Node.js", "TailwindCSS"],
+    demo: "https://revenue-rescue-ai-omega.vercel.app/",
+    github: "https://github.com/Mudavath-kumar/-RevenueRescue-AI",
+  },
+  {
+    n: "03",
+    title: "MambaTab",
+    subtitle: "Selective State-Space Model for Tabular Fraud",
+    kind: "DEEP LEARNING / RESEARCH",
+    image: mambaTab,
+    domain: "mambatab-ssm.research",
+    text: "Selective state-space fraud detection benchmarked across 284,000 transactions, capturing complex tabular interactions and achieving a 0.97 ROC-AUC.",
+    metrics: "284K Transactions · 0.97 ROC-AUC · Sub-ms Inference",
+    tags: ["PyTorch", "Mamba / SSM", "Python", "Scikit-Learn", "CUDA"],
+    demo: null,
+    github: "https://github.com/Mudavath-kumar/Mini-Project--3-2",
+  },
+  {
+    n: "04",
+    title: "Recipe Haven",
+    subtitle: "Curated Culinary Discovery Platform",
+    kind: "FULL STACK / MERN PLATFORM",
+    image: recipeHaven,
+    domain: "recipe-haven.vercel.app",
+    text: "A production MERN platform featuring secure JWT authentication, dynamic recipe composition, cloud media integration, and fast faceted search.",
+    metrics: "Secure JWT Auth · Cloud Storage · Full-Text Search",
+    tags: ["React", "Node.js", "Express", "MongoDB", "Cloudinary"],
+    demo: "https://v0-recipe-adding-platform.vercel.app/",
+    github: "https://github.com/Mudavath-kumar/recipe-adding-platform-01",
+  },
 ];
 
 const experience = [
@@ -47,10 +95,10 @@ const experience = [
 ];
 
 const stats = [
-  { value: "150+", label: "DSA PROBLEMS SOLVED" },
-  { value: "20+", label: "CERTIFICATIONS" },
-  { value: "04", label: "FEATURED PROJECTS" },
-  { value: "05", label: "AI AGENTS · TRUSTRAG" },
+  { numericValue: 150, suffix: "+", label: "DSA PROBLEMS SOLVED" },
+  { numericValue: 20, suffix: "+", label: "CERTIFICATIONS" },
+  { numericValue: 4, suffix: "", label: "FEATURED PROJECTS" },
+  { numericValue: 5, suffix: "", label: "AI AGENTS · TRUSTRAG" },
 ];
 
 const capabilities = [
@@ -173,29 +221,125 @@ function NeuralField() {
   return <canvas ref={ref} className="neural-field" aria-hidden="true" />;
 }
 
+/* Animated number component that counts up on scroll */
+function AnimatedCounter({ value, suffix, label }: { value: number; suffix: string; label: string }) {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const numberRef = useRef<HTMLSpanElement>(null);
+
+  useEffect(() => {
+    const el = numberRef.current;
+    const container = containerRef.current;
+    if (!el || !container) return;
+    const isReduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (isReduced) {
+      el.textContent = `${value}${suffix}`;
+      return;
+    }
+
+    gsap.registerPlugin(ScrollTrigger);
+    const state = { val: 0 };
+    const st = ScrollTrigger.create({
+      trigger: container,
+      start: "top 88%",
+      once: true,
+      onEnter: () => {
+        gsap.to(state, {
+          val: value,
+          duration: 1.8,
+          ease: "power2.out",
+          onUpdate: () => {
+            if (el) el.textContent = `${Math.round(state.val)}${suffix}`;
+          },
+        });
+      },
+    });
+
+    return () => {
+      st.kill();
+    };
+  }, [value, suffix]);
+
+  return (
+    <div ref={containerRef} className="reveal">
+      <strong ref={numberRef}>0{suffix}</strong>
+      <span>{label}</span>
+    </div>
+  );
+}
+
 function Portfolio() {
   const root = useRef<HTMLDivElement>(null);
   const certificatePreview = useRef<HTMLDivElement>(null);
   const certificateTarget = useRef({ x: -800, y: -800 });
   const [dark, setDark] = useState(true);
   const [activeCertificate, setActiveCertificate] = useState<number | null>(null);
-  const [certView, setCertView] = useState<"tiles" | "list">("tiles");
-  const [selectedCert, setSelectedCert] = useState<(typeof certifications)[0] | null>(null);
+  const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
+  const [activeNav, setActiveNav] = useState<string>("top");
+  const [showBackToTop, setShowBackToTop] = useState(false);
+  const [copiedEmail, setCopiedEmail] = useState(false);
+  const [preloaderDone, setPreloaderDone] = useState(false);
 
+  // Contact form state (Formspree endpoint: https://formspree.io/f/mdekvbwo)
+  const [formCategory, setFormCategory] = useState("Full-time Role");
+  const [formName, setFormName] = useState("");
+  const [formEmail, setFormEmail] = useState("");
+  const [formMessage, setFormMessage] = useState("");
+  const [formStatus, setFormStatus] = useState<"idle" | "submitting" | "success" | "error">("idle");
+  const [formErrorMsg, setFormErrorMsg] = useState("");
+
+  // Preloader timeout
   useEffect(() => {
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === "Escape") setSelectedCert(null);
-    };
-    window.addEventListener("keydown", handleKeyDown);
-    return () => window.removeEventListener("keydown", handleKeyDown);
+    const timer = setTimeout(() => setPreloaderDone(true), 1100);
+    return () => clearTimeout(timer);
   }, []);
 
+  // Theme setup
   useEffect(() => {
     const saved = localStorage.getItem("mk-theme");
     const value = saved ? saved === "dark" : false;
-    setDark(value); document.documentElement.classList.toggle("dark", value);
+    setDark(value);
+    document.documentElement.classList.toggle("dark", value);
   }, []);
 
+  // Keyboard navigation for certificate lightbox
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (lightboxIndex === null) return;
+      if (e.key === "Escape") {
+        setLightboxIndex(null);
+      } else if (e.key === "ArrowRight") {
+        setLightboxIndex((prev) => (prev !== null ? (prev + 1) % certifications.length : null));
+      } else if (e.key === "ArrowLeft") {
+        setLightboxIndex((prev) => (prev !== null ? (prev - 1 + certifications.length) % certifications.length : null));
+      }
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [lightboxIndex]);
+
+  // Scrollspy & Back-to-top visibility
+  useEffect(() => {
+    const handleScroll = () => {
+      setShowBackToTop(window.scrollY > 600);
+      const sections = ["top", "about", "work", "capabilities", "experience", "certifications", "contact"];
+      const scrollPos = window.scrollY + 200;
+      for (const sectionId of sections) {
+        const el = document.getElementById(sectionId);
+        if (el) {
+          const top = el.offsetTop;
+          const height = el.offsetHeight;
+          if (scrollPos >= top && scrollPos < top + height) {
+            setActiveNav(sectionId);
+            break;
+          }
+        }
+      }
+    };
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  // GSAP Animations
   useEffect(() => {
     gsap.registerPlugin(ScrollTrigger);
     if (!root.current) return;
@@ -203,52 +347,46 @@ function Portfolio() {
     const context = gsap.context(() => {
       if (reduce) return;
 
-      // Hero entrance — faster, punchier
+      // Hero entrance
       gsap.from("[data-enter]", { y: 22, opacity: 0, duration: .6, stagger: .1, ease: "power3.out" });
       gsap.from(".hero-name span", { yPercent: 115, duration: 1.3, stagger: .1, ease: "expo.out", delay: .15 });
       gsap.from(".hero-kicker", { opacity: 0, x: -20, duration: .9, ease: "power3.out", delay: .5 });
 
-      // Hero parallax — name drifts up as you scroll
+      // Hero parallax
       gsap.to(".hero-name", { yPercent: -28, opacity: 0, ease: "none", scrollTrigger: { trigger: ".video-hero", start: "top top", end: "bottom top", scrub: 1.2 } });
       gsap.to(".hero-caption", { y: -80, opacity: 0, ease: "none", scrollTrigger: { trigger: ".video-hero", start: "top top", end: "60% top", scrub: 1 } });
       gsap.to(".hero-kicker", { y: -60, opacity: 0, ease: "none", scrollTrigger: { trigger: ".video-hero", start: "top top", end: "60% top", scrub: 1 } });
 
-      // Panel slides up from below
+      // Panel slides up
       gsap.fromTo(".archive-panel", { y: "18vh" }, { y: 0, ease: "none", scrollTrigger: { trigger: ".archive-panel", start: "top bottom", end: "top top", scrub: 1.5 } });
 
-      // Project cards — clip-path reveal + scale
-      gsap.utils.toArray<HTMLElement>(".archive-card").forEach((card, i) => {
+      // Project cards
+      gsap.utils.toArray<HTMLElement>(".project-card").forEach((card, i) => {
         gsap.fromTo(card,
-          { scale: .82, y: 100, opacity: 0, rotateX: 6 },
-          { scale: 1, y: 0, opacity: 1, rotateX: 0, ease: "power3.out",
-            scrollTrigger: { trigger: card, start: "top 92%", end: "center 60%", scrub: false, toggleActions: "play none none none" },
-            duration: 1.1, delay: i * 0.07 }
+          { scale: .92, y: 60, opacity: 0 },
+          { scale: 1, y: 0, opacity: 1, ease: "power3.out",
+            scrollTrigger: { trigger: card, start: "top 92%", end: "center 65%", scrub: false, toggleActions: "play none none none" },
+            duration: 1.1, delay: i * 0.08 }
         );
       });
 
       // Project images parallax
-      gsap.utils.toArray<HTMLElement>(".archive-image img").forEach((img) => {
-        gsap.fromTo(img, { yPercent: -8 }, { yPercent: 8, ease: "none",
-          scrollTrigger: { trigger: img.closest(".archive-card"), start: "top bottom", end: "bottom top", scrub: 1.5 } });
+      gsap.utils.toArray<HTMLElement>(".project-screen-link img").forEach((img) => {
+        gsap.fromTo(img, { yPercent: -4 }, { yPercent: 4, ease: "none",
+          scrollTrigger: { trigger: img.closest(".project-card"), start: "top bottom", end: "bottom top", scrub: 1.5 } });
       });
 
-      // Stats counter fly-in
-      gsap.utils.toArray<HTMLElement>(".archive-stats div").forEach((el, i) => {
-        gsap.from(el, { y: 50, opacity: 0, duration: .8, ease: "power3.out",
-          scrollTrigger: { trigger: el, start: "top 88%", toggleActions: "play none none none" }, delay: i * 0.1 });
-      });
-
-      // Section reveals — split into header + content
+      // Section reveals
       gsap.utils.toArray<HTMLElement>(".reveal").forEach((el) => {
-        gsap.from(el, { y: 55, opacity: 0, duration: 1.1, ease: "power4.out",
-          scrollTrigger: { trigger: el, start: "top 87%", toggleActions: "play none none none" } });
+        gsap.from(el, { y: 45, opacity: 0, duration: 1, ease: "power4.out",
+          scrollTrigger: { trigger: el, start: "top 88%", toggleActions: "play none none none" } });
       });
 
       // Manifesto word-by-word
       gsap.fromTo(".mword", { opacity: .08, y: 8 }, { opacity: 1, y: 0, stagger: .04, ease: "none",
         scrollTrigger: { trigger: ".manifesto", start: "top 72%", end: "bottom 40%", scrub: true } });
 
-      // Exp rows slide in from left
+      // Exp rows slide in
       gsap.utils.toArray<HTMLElement>(".exp-row").forEach((row, i) => {
         gsap.from(row, { x: -40, opacity: 0, duration: .9, ease: "power3.out",
           scrollTrigger: { trigger: row, start: "top 90%", toggleActions: "play none none none" }, delay: i * 0.08 });
@@ -257,13 +395,13 @@ function Portfolio() {
       // Cert rows staggered
       gsap.utils.toArray<HTMLElement>(".cert-row").forEach((row, i) => {
         gsap.from(row, { x: 30, opacity: 0, duration: .7, ease: "power3.out",
-          scrollTrigger: { trigger: row, start: "top 92%", toggleActions: "play none none none" }, delay: i * 0.06 });
+          scrollTrigger: { trigger: row, start: "top 92%", toggleActions: "play none none none" }, delay: i * 0.04 });
       });
 
       // Outro contact reveal
       gsap.fromTo(".view-overlay", { opacity: 0 }, { opacity: 1, ease: "none",
         scrollTrigger: { trigger: ".archive-outro", start: "top 80%", end: "top 20%", scrub: true } });
-      gsap.from(".archive-outro > a", { yPercent: 30, opacity: 0, duration: 1.4, ease: "expo.out",
+      gsap.from(".contact-headline", { yPercent: 30, opacity: 0, duration: 1.4, ease: "expo.out",
         scrollTrigger: { trigger: ".archive-outro", start: "top 75%", toggleActions: "play none none none" } });
 
       // Scroll progress bar
@@ -277,6 +415,7 @@ function Portfolio() {
           scrollTrigger: { trigger: ".cap-pin", start: "top top", end: () => `+=${track.scrollWidth}`, pin: true, scrub: 1, invalidateOnRefresh: true } });
       }
     }, root);
+
     const refresh = () => ScrollTrigger.refresh();
     document.fonts.ready.then(refresh).catch(() => undefined);
     window.addEventListener("load", refresh, { once: true });
@@ -287,7 +426,32 @@ function Portfolio() {
   }, []);
 
   const toggleTheme = () => {
-    const value = !dark; setDark(value); document.documentElement.classList.toggle("dark", value); localStorage.setItem("mk-theme", value ? "dark" : "light");
+    const value = !dark;
+    setDark(value);
+    document.documentElement.classList.toggle("dark", value);
+    localStorage.setItem("mk-theme", value ? "dark" : "light");
+  };
+
+  const copyEmailToClipboard = () => {
+    navigator.clipboard.writeText("kc893825@gmail.com");
+    setCopiedEmail(true);
+    setTimeout(() => setCopiedEmail(false), 2400);
+  };
+
+  const handleCardMouseMove = (e: React.MouseEvent<HTMLElement>) => {
+    const card = e.currentTarget;
+    const rect = card.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    const centerX = rect.width / 2;
+    const centerY = rect.height / 2;
+    const rotateX = ((y - centerY) / centerY) * -6;
+    const rotateY = ((x - centerX) / centerX) * 6;
+    card.style.transform = `perspective(1000px) rotateX(${rotateX.toFixed(2)}deg) rotateY(${rotateY.toFixed(2)}deg) translateY(-4px)`;
+  };
+
+  const handleCardMouseLeave = (e: React.MouseEvent<HTMLElement>) => {
+    e.currentTarget.style.transform = "perspective(1000px) rotateX(0deg) rotateY(0deg) translateY(0px)";
   };
 
   const moveCertificatePreview = (event: React.PointerEvent) => {
@@ -302,7 +466,7 @@ function Portfolio() {
     certificateTarget.current = { x, y };
   };
 
-  /* Preview card trails the pointer with an eased lerp, like a floating reference sheet. */
+  /* Preview card trails the pointer */
   useEffect(() => {
     const preview = certificatePreview.current;
     if (!preview) return;
@@ -318,105 +482,577 @@ function Portfolio() {
     return () => cancelAnimationFrame(raf);
   }, []);
 
-  return <div ref={root} className="archive-shell">
-    <SmoothCursor />
-    <div className="scroll-progress" aria-hidden="true" />
-    <header className="archive-header" data-enter>
-      <a className="archive-logo" href="#top" aria-label="Back to top">MK<span>®</span></a>
-      <div className="archive-nav"><a href="#about">ABOUT</a><a href="#work">[ WORK ]</a><a href="#contact">CONTACT</a><a href="/Mudavath_Kumar_Resume-.pdf" target="_blank" rel="noreferrer" className="resume-btn"><Download style={{width:13,height:13}}/> RESUME</a><button onClick={toggleTheme} aria-label={dark ? "Use light theme" : "Use dark theme"}>{dark ? <Sun/> : <Moon/>}</button></div>
-    </header>
+  const handleContactSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setFormStatus("submitting");
+    setFormErrorMsg("");
 
-    <section id="top" className="video-hero">
-      <NeuralField />
-      <div className="hero-kicker" data-enter>FULL STACK DEVELOPER<br/>AI / LLM / RAG ENGINEER</div>
-      <p className="hero-caption" data-enter>Building dependable intelligent systems through deliberate code, strong product thinking and expressive interfaces.</p>
-      <h1 className="hero-name" aria-label="Mudavath Kumar"><span>MUDAVATH</span><span>KUMAR</span></h1>
-      <div className="hero-foot" data-enter><span>HYDERABAD, INDIA · AVAILABLE WORLDWIDE</span><div style={{display:"flex",gap:"1.5rem",alignItems:"center"}}><a href="/Mudavath_Kumar_Resume-.pdf" target="_blank" rel="noreferrer">DOWNLOAD RÉSUMÉ ↓</a><a href="#work">VIEW MY WORK ↓</a></div></div>
-    </section>
+    try {
+      const response = await fetch("https://formspree.io/f/mdekvbwo", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Accept": "application/json",
+        },
+        body: JSON.stringify({
+          category: formCategory,
+          name: formName,
+          email: formEmail,
+          message: formMessage,
+          _subject: `[${formCategory}] Portfolio Inquiry from ${formName || formEmail}`,
+        }),
+      });
 
-    <main id="work" className="archive-panel">
-      <section id="about" className="archive-about reveal">
-        <span>ABOUT</span><h2>Code with rigor.<br/>Design with intent.</h2>
-        <div><p>Final-year Computer Science student and working engineer focused on full-stack platforms, retrieval systems and applied machine learning.</p><p>I care about systems you can trust — measurable, explainable and pleasant to use.</p></div>
-      </section>
+      if (response.ok) {
+        setFormStatus("success");
+      } else {
+        const data = await response.json().catch(() => null);
+        setFormStatus("error");
+        setFormErrorMsg(data?.errors?.[0]?.message || "Could not deliver message via Formspree. Please try direct email.");
+      }
+    } catch {
+      setFormStatus("error");
+      setFormErrorMsg("Network error. Please use direct email or try again.");
+    }
+  };
 
-      <div className="archive-intro"><span>FEATURED WORK · 01—04</span><h2>Systems built<br/>to earn trust.</h2><p>Selected products across<br/>AI, machine learning and web.</p></div>
-      <div className="archive-grid">
-        {projects.map((project, index) => <article className={`archive-card card-${index + 1}`} key={project.title}>
-          <a href={project.demo || project.github} target="_blank" rel="noreferrer" className="archive-image"><img src={project.image} alt={`${project.title} project artwork`} width={768} height={1024} loading="lazy"/><span>{project.n}</span></a>
-          <div className="archive-card-copy"><span>{project.kind}</span><h3>{project.title}</h3><p>{project.text}</p><div>{project.demo && <a href={project.demo} target="_blank" rel="noreferrer">VIEW <ArrowUpRight/></a>}<a href={project.github} target="_blank" rel="noreferrer">CODE <Github/></a></div></div>
-        </article>)}
+  const currentCert = lightboxIndex !== null ? certifications[lightboxIndex] : null;
+
+  return (
+    <div ref={root} className="archive-shell">
+      {/* Preloader overlay */}
+      <div className={`portfolio-preloader ${preloaderDone ? "preloader-hidden" : ""}`} aria-hidden="true">
+        <div className="preloader-content">
+          <div className="preloader-logo">MK<span>®</span></div>
+          <div className="preloader-bar"><div className="preloader-fill" /></div>
+          <span className="preloader-caption">SYSTEMS ONLINE · HYDERABAD</span>
+        </div>
       </div>
 
-      <section className="archive-stats">
-        {stats.map((s) => <div className="reveal" key={s.label}><strong>{s.value}</strong><span>{s.label}</span></div>)}
+      <SmoothCursor />
+      <div className="scroll-progress" aria-hidden="true" />
+
+      {/* Header */}
+      <header className="archive-header" data-enter>
+        <div className="header-left">
+          <a className="archive-logo" href="#top" aria-label="Back to top">MK<span>®</span></a>
+          <div className="status-badge" title="Open to Full-Time SDE & AI roles worldwide">
+            <span className="status-dot-wrap">
+              <span className="status-ping" />
+              <span className="status-dot" />
+            </span>
+            <span className="status-label">OPEN TO WORK</span>
+          </div>
+        </div>
+
+        <nav className="archive-nav">
+          <a href="#about" className={activeNav === "about" ? "is-active" : ""}>ABOUT</a>
+          <a href="#work" className={activeNav === "work" ? "is-active" : ""}>[ WORK ]</a>
+          <a href="#experience" className={activeNav === "experience" ? "is-active" : ""}>EXPERIENCE</a>
+          <a href="#certifications" className={activeNav === "certifications" ? "is-active" : ""}>CERTS</a>
+          <a href="#contact" className={activeNav === "contact" ? "is-active" : ""}>CONTACT</a>
+          <a href="/Mudavath_Kumar_Resume-.pdf" target="_blank" rel="noreferrer" className="resume-btn">
+            <Download style={{ width: 13, height: 13 }} /> RESUME
+          </a>
+          <button onClick={toggleTheme} aria-label={dark ? "Use light theme" : "Use dark theme"}>
+            {dark ? <Sun /> : <Moon />}
+          </button>
+        </nav>
+      </header>
+
+      {/* Hero Section */}
+      <section id="top" className="video-hero">
+        <NeuralField />
+        <div className="hero-kicker" data-enter>FULL STACK DEVELOPER<br />AI / LLM / RAG ENGINEER</div>
+        <p className="hero-caption" data-enter>
+          Building dependable intelligent systems through deliberate code, strong product thinking and expressive interfaces.
+        </p>
+        <h1 className="hero-name" aria-label="Mudavath Kumar">
+          <span>MUDAVATH</span>
+          <span>KUMAR</span>
+        </h1>
+        <div className="hero-foot" data-enter>
+          <span>HYDERABAD, INDIA · AVAILABLE WORLDWIDE</span>
+          <div style={{ display: "flex", gap: "1.5rem", alignItems: "center" }}>
+            <a href="/Mudavath_Kumar_Resume-.pdf" target="_blank" rel="noreferrer">DOWNLOAD RÉSUMÉ ↓</a>
+            <a href="#work">VIEW MY WORK ↓</a>
+          </div>
+        </div>
       </section>
 
-      <section className="manifesto">
-        <span>MANIFESTO / 06</span>
-        <p>{"Intelligent software should be accountable. I design AI that shows its reasoning, interfaces that feel inevitable, and backends that stay calm under pressure.".split(" ").map((w, i) => <span className="mword" key={i}>{w} </span>)}</p>
-      </section>
-    </main>
+      {/* Main Panel */}
+      <main id="work" className="archive-panel">
+        <section id="about" className="archive-about reveal">
+          <span>ABOUT</span>
+          <h2>Code with rigor.<br />Design with intent.</h2>
+          <div>
+            <p>Final-year Computer Science student and working engineer focused on full-stack platforms, retrieval systems and applied machine learning.</p>
+            <p>I care about systems you can trust — measurable, explainable and pleasant to use.</p>
+          </div>
+        </section>
 
-    <section className="cap-pin">
-      <div className="cap-head"><span>CAPABILITIES / 07</span><h2>What I build</h2></div>
-      <div className="cap-track">
-        {capabilities.map((c) => <article className="cap-card" key={c.n}><span>{c.n}</span><h3>{c.title}</h3><p>{c.text}</p><ul>{c.tags.map((t) => <li key={t}>{t}</li>)}</ul></article>)}
+        <div className="archive-intro">
+          <span>FEATURED WORK · 01—04</span>
+          <h2>Systems built<br />to earn trust.</h2>
+          <p>Selected engineering systems across<br />AI agents, deep learning, and full-stack platforms.</p>
+        </div>
+
+        <div className="projects-showcase">
+          {projects.map((project, index) => (
+            <article
+              className={`project-card ${index % 2 === 1 ? "card-reversed" : ""}`}
+              key={project.title}
+              onMouseMove={handleCardMouseMove}
+              onMouseLeave={handleCardMouseLeave}
+            >
+              <div className="project-display">
+                <div className="browser-bar">
+                  <div className="browser-dots">
+                    <span className="b-dot b-close" />
+                    <span className="b-dot b-min" />
+                    <span className="b-dot b-max" />
+                  </div>
+                  <div className="browser-url">
+                    <span className="browser-lock">🔒</span>
+                    <span>{project.domain}</span>
+                  </div>
+                  <span className="browser-num">{project.n}</span>
+                </div>
+
+                <a
+                  href={project.demo || project.github}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="project-screen-link"
+                  aria-label={`Open ${project.title}`}
+                >
+                  <img
+                    src={project.image}
+                    alt={`${project.title} project interface`}
+                    width={1280}
+                    height={800}
+                    loading="lazy"
+                  />
+                  <div className="screen-hover-badge">
+                    <span>{project.demo ? "OPEN LIVE DEMO ↗" : "EXPLORE REPOSITORY ↗"}</span>
+                  </div>
+                </a>
+              </div>
+
+              <div className="project-details">
+                <div className="project-header-meta">
+                  <span className="project-num-tag">{project.n}</span>
+                  <span className="project-category">{project.kind}</span>
+                </div>
+
+                <h3 className="project-main-title">{project.title}</h3>
+                <h4 className="project-tagline">{project.subtitle}</h4>
+                <p className="project-summary">{project.text}</p>
+
+                <div className="project-metrics-banner">
+                  <span className="metrics-label">BENCHMARK / HIGHLIGHT</span>
+                  <strong className="metrics-val">{project.metrics}</strong>
+                </div>
+
+                <div className="project-tags-list">
+                  {project.tags.map((t) => (
+                    <span key={t} className="tech-badge">{t}</span>
+                  ))}
+                </div>
+
+                <div className="project-button-row">
+                  {project.demo && (
+                    <a href={project.demo} target="_blank" rel="noreferrer" className="btn-primary-action">
+                      <span>LIVE DEMO</span>
+                      <ArrowUpRight style={{ width: 14, height: 14 }} />
+                    </a>
+                  )}
+                  <a href={project.github} target="_blank" rel="noreferrer" className="btn-secondary-action">
+                    <Github style={{ width: 14, height: 14 }} />
+                    <span>CODE</span>
+                  </a>
+                </div>
+              </div>
+            </article>
+          ))}
+        </div>
+
+        {/* Animated Counter Stats */}
+        <section className="archive-stats">
+          {stats.map((s) => (
+            <AnimatedCounter
+              key={s.label}
+              value={s.numericValue}
+              suffix={s.suffix}
+              label={s.label}
+            />
+          ))}
+        </section>
+
+        <section className="manifesto">
+          <span>MANIFESTO / 06</span>
+          <p>
+            {"Intelligent software should be accountable. I design AI that shows its reasoning, interfaces that feel inevitable, and backends that stay calm under pressure.".split(" ").map((w, i) => (
+              <span className="mword" key={i}>{w} </span>
+            ))}
+          </p>
+        </section>
+      </main>
+
+      {/* Horizontal Capabilities */}
+      <section id="capabilities" className="cap-pin">
+        <div className="cap-head">
+          <span>CAPABILITIES / 07</span>
+          <h2>What I build</h2>
+        </div>
+        <div className="cap-track">
+          {capabilities.map((c) => (
+            <article className="cap-card" key={c.n}>
+              <span>{c.n}</span>
+              <h3>{c.title}</h3>
+              <p>{c.text}</p>
+              <ul>{c.tags.map((t) => <li key={t}>{t}</li>)}</ul>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      {/* Archive Panel 2 */}
+      <main className="archive-panel archive-panel-2">
+        <section id="experience" className="archive-exp">
+          <span className="reveal">EXPERIENCE</span>
+          {experience.map((e) => (
+            <div className="exp-row reveal" key={e.org}>
+              <span>{e.year}</span>
+              <h3>{e.role}</h3>
+              <strong>{e.org}</strong>
+              <p>{e.text}</p>
+            </div>
+          ))}
+        </section>
+
+        <section className="education">
+          <span className="reveal">EDUCATION</span>
+          {education.map((item) => (
+            <article className="education-row reveal" key={item.degree}>
+              <span>{item.period}</span>
+              <div>
+                <h3>{item.degree}</h3>
+                <strong>{item.school}</strong>
+                <p>{item.focus}</p>
+              </div>
+            </article>
+          ))}
+        </section>
+
+        {/* Certifications with Clickable Lightbox */}
+        <section id="certifications" className="certifications" onPointerLeave={() => setActiveCertificate(null)}>
+          <div className="cert-head reveal">
+            <div>
+              <span>CREDENTIALS</span>
+              <p className="cert-subtitle">Click any certificate to inspect full resolution</p>
+            </div>
+            <strong>ALL · 20</strong>
+          </div>
+          <div className="cert-list">
+            {certifications.map((item, index) => (
+              <div
+                className="cert-row"
+                key={item.title}
+                role="button"
+                tabIndex={0}
+                onClick={() => setLightboxIndex(index)}
+                onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") setLightboxIndex(index); }}
+                onPointerEnter={() => setActiveCertificate(index)}
+                onPointerMove={moveCertificatePreview}
+                aria-label={`View certificate: ${item.title}`}
+              >
+                <span>{String(index + 1).padStart(2, "0")}</span>
+                <p>
+                  <span className="cert-title">{item.title}</span>
+                  <ArrowUpRight className="cert-arrow" aria-hidden="true" />
+                </p>
+                <em>{item.issuer}</em>
+                <small>{item.year}</small>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        <section className="process">
+          <span className="reveal">PROCESS / 09</span>
+          <div className="process-grid">
+            {process.map((p) => (
+              <div className="process-step reveal" key={p.n}>
+                <strong>{p.n}</strong>
+                <h3>{p.title}</h3>
+                <p>{p.text}</p>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        <section className="stack">
+          <span className="reveal">TECHNICAL SKILLS</span>
+          <div className="stack-grid">
+            {stack.map((g) => (
+              <div className="stack-col reveal" key={g.group}>
+                <h3>{g.group}</h3>
+                {g.items.map((i) => <p key={i}>{i}</p>)}
+              </div>
+            ))}
+          </div>
+        </section>
+
+        <section className="profiles">
+          <div className="profiles-head reveal">
+            <span>CODING PROFILES</span>
+            <h2>Find me online.</h2>
+          </div>
+          <div className="profiles-grid">
+            {profiles.map(([label, url]) => (
+              <a className="reveal" key={label} href={url} target="_blank" rel="noreferrer">
+                <span>{label}</span>
+                <ArrowUpRight />
+              </a>
+            ))}
+          </div>
+        </section>
+
+        <section className="skill-reel">
+          <div>REACT · TYPESCRIPT · PYTHON · FASTAPI · LANGCHAIN · NODE.JS · MONGODB · SQL · GO · DOCKER ·&nbsp;</div>
+          <div aria-hidden="true">REACT · TYPESCRIPT · PYTHON · FASTAPI · LANGCHAIN · NODE.JS · MONGODB · SQL · GO · DOCKER ·&nbsp;</div>
+        </section>
+      </main>
+
+      {/* Outro & Interactive Contact Section */}
+      <section id="contact" className="archive-outro">
+        <div className="view-overlay" aria-hidden="true" />
+        
+        <div className="contact-top">
+          <p className="contact-avail">AVAILABLE FOR SOFTWARE ENGINEERING OPPORTUNITIES</p>
+          <a href="mailto:kc893825@gmail.com" className="contact-headline">
+            LET’S<br />BUILD.<ArrowUpRight />
+          </a>
+        </div>
+
+        {/* Direct Message Card */}
+        <div className="contact-box-grid">
+          <div className="contact-card">
+            <span className="contact-card-sub">DIRECT INQUIRY</span>
+            <h3>Send a Message</h3>
+            
+            <div className="category-pills">
+              {["Full-time Role", "Freelance / Project", "Collaboration", "Quick Hello"].map((cat) => (
+                <button
+                  key={cat}
+                  type="button"
+                  className={`pill-btn ${formCategory === cat ? "is-selected" : ""}`}
+                  onClick={() => setFormCategory(cat)}
+                >
+                  {cat}
+                </button>
+              ))}
+            </div>
+
+            {formStatus === "success" ? (
+              <div className="form-success-card">
+                <div className="success-icon-badge">
+                  <Check style={{ width: 22, height: 22 }} />
+                </div>
+                <h4>Message Delivered to Kumar!</h4>
+                <p>
+                  Thank you for reaching out{formName ? `, ${formName}` : ""}. Your note was transmitted directly to my inbox via Formspree. I typically review and respond within 24 hours.
+                </p>
+                <button
+                  type="button"
+                  className="btn-send-another"
+                  onClick={() => {
+                    setFormStatus("idle");
+                    setFormMessage("");
+                  }}
+                >
+                  <span>SEND ANOTHER MESSAGE</span>
+                </button>
+              </div>
+            ) : (
+              <form onSubmit={handleContactSubmit} className="interactive-form">
+                <div className="form-row">
+                  <input
+                    type="text"
+                    name="name"
+                    placeholder="Your Name"
+                    value={formName}
+                    onChange={(e) => setFormName(e.target.value)}
+                    required
+                  />
+                  <input
+                    type="email"
+                    name="email"
+                    placeholder="Your Email"
+                    value={formEmail}
+                    onChange={(e) => setFormEmail(e.target.value)}
+                    required
+                  />
+                </div>
+                <textarea
+                  name="message"
+                  placeholder="Tell me about your opportunity, project or inquiry..."
+                  rows={3}
+                  value={formMessage}
+                  onChange={(e) => setFormMessage(e.target.value)}
+                  required
+                />
+                <div className="form-actions">
+                  <button
+                    type="submit"
+                    className="form-submit-btn"
+                    disabled={formStatus === "submitting"}
+                  >
+                    <span>{formStatus === "submitting" ? "Delivering Note..." : "Send Message"}</span>
+                    <Send style={{ width: 14, height: 14 }} />
+                  </button>
+                  <button
+                    type="button"
+                    onClick={copyEmailToClipboard}
+                    className="copy-email-btn"
+                  >
+                    {copiedEmail ? <Check style={{ width: 14, height: 14, color: "var(--primary)" }} /> : <Copy style={{ width: 14, height: 14 }} />}
+                    <span>{copiedEmail ? "Email Copied!" : "Copy Email"}</span>
+                  </button>
+                </div>
+                {formStatus === "error" && (
+                  <div className="form-error-banner">
+                    <span>{formErrorMsg}</span>
+                    <a href={`mailto:kc893825@gmail.com?subject=${encodeURIComponent(`[${formCategory}] Portfolio Inquiry`)}&body=${encodeURIComponent(formMessage)}`}>
+                      Open mail client instead →
+                    </a>
+                  </div>
+                )}
+              </form>
+            )}
+          </div>
+
+          <div className="contact-info-card">
+            <span className="contact-card-sub">DIRECT CONTACT</span>
+            <div className="direct-links-list">
+              <a className="view-btn" href="mailto:kc893825@gmail.com">
+                <span>kc893825@gmail.com</span>
+                <ArrowUpRight style={{ width: 14, height: 14 }} />
+              </a>
+              <a className="view-btn" href="tel:+917569055938">
+                <span>+91 75690 55938</span>
+                <ArrowUpRight style={{ width: 14, height: 14 }} />
+              </a>
+              <a className="view-btn" href="/Mudavath_Kumar_Resume-.pdf" target="_blank" rel="noreferrer">
+                <span>DOWNLOAD RÉSUMÉ</span>
+                <Download style={{ width: 14, height: 14 }} />
+              </a>
+            </div>
+            <div className="location-box">
+              <span className="location-label">LOCATION</span>
+              <p>Hyderabad, Telangana, India</p>
+              <small>UTC+05:30 · Open to Remote & Relocation</small>
+            </div>
+          </div>
+        </div>
+
+        <footer>
+          <span>MUDAVATH KUMAR</span>
+          <a href="https://github.com/Mudavath-kumar" target="_blank" rel="noreferrer">GITHUB</a>
+          <a href="https://linkedin.com/in/mudavath-kumar-mudavath-kumar" target="_blank" rel="noreferrer">LINKEDIN</a>
+        </footer>
+      </section>
+
+      {/* Floating Certificate Preview sheet on mouse move */}
+      <div ref={certificatePreview} className={`certificate-preview ${activeCertificate !== null && lightboxIndex === null ? "is-visible" : ""}`} aria-hidden="true">
+        <div className="certificate-preview-media">
+          {certifications.map((item, index) => (
+            <img key={item.title} src={item.image} alt="" loading="lazy" className={index === activeCertificate ? "is-active" : ""} />
+          ))}
+          <div className="certificate-preview-shade" />
+        </div>
+        <span>{activeCertificate !== null ? certifications[activeCertificate]?.title : ""}</span>
       </div>
-    </section>
 
-    <main className="archive-panel archive-panel-2">
-      <section className="archive-exp">
-        <span className="reveal">EXPERIENCE</span>
-        {experience.map((e) => <div className="exp-row reveal" key={e.org}><span>{e.year}</span><h3>{e.role}</h3><strong>{e.org}</strong><p>{e.text}</p></div>)}
-      </section>
+      {/* Fullscreen Certificate Lightbox Modal */}
+      {lightboxIndex !== null && currentCert && (
+        <div className="cert-modal-backdrop" onClick={() => setLightboxIndex(null)}>
+          <div className="cert-modal-dialog" onClick={(e) => e.stopPropagation()}>
+            <div className="cert-modal-header">
+              <div className="cert-modal-index">
+                <span>CERTIFICATE {String(lightboxIndex + 1).padStart(2, "0")} / {certifications.length}</span>
+              </div>
+              <div className="cert-modal-actions">
+                <a
+                  href={currentCert.image}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="cert-modal-link"
+                  title="Open original file in new tab"
+                >
+                  <ExternalLink style={{ width: 16, height: 16 }} />
+                  <span>Full Size</span>
+                </a>
+                <button
+                  type="button"
+                  className="cert-modal-close"
+                  onClick={() => setLightboxIndex(null)}
+                  aria-label="Close dialog"
+                >
+                  <X style={{ width: 20, height: 20 }} />
+                </button>
+              </div>
+            </div>
 
-      <section className="education">
-        <span className="reveal">EDUCATION</span>
-        {education.map((item) => <article className="education-row reveal" key={item.degree}>
-          <span>{item.period}</span><div><h3>{item.degree}</h3><strong>{item.school}</strong><p>{item.focus}</p></div>
-        </article>)}
-      </section>
+            <div className="cert-modal-body">
+              <button
+                type="button"
+                className="cert-nav-btn cert-nav-prev"
+                onClick={() => setLightboxIndex((lightboxIndex - 1 + certifications.length) % certifications.length)}
+                aria-label="Previous certificate"
+              >
+                <ChevronLeft style={{ width: 24, height: 24 }} />
+              </button>
 
-      <section className="certifications" onPointerLeave={() => setActiveCertificate(null)}>
-        <div className="cert-head reveal"><span>CERTIFICATIONS</span><strong>ALL · 20</strong></div>
-        <div className="cert-list">{certifications.map((item, index) => <div className="cert-row" key={item.title} onPointerEnter={() => setActiveCertificate(index)} onPointerMove={moveCertificatePreview}>
-          <span>{String(index + 1).padStart(2, "0")}</span><p><span className="cert-title">{item.title}</span><ArrowUpRight className="cert-arrow" aria-hidden="true" /></p><em>{item.issuer}</em><small>{item.year}</small>
-        </div>)}</div>
-      </section>
+              <div className="cert-modal-image-wrap">
+                <img
+                  src={currentCert.image}
+                  alt={`Certificate: ${currentCert.title}`}
+                  className="cert-modal-img"
+                />
+              </div>
 
-      <section className="process">
-        <span className="reveal">PROCESS / 09</span>
-        <div className="process-grid">{process.map((p) => <div className="process-step reveal" key={p.n}><strong>{p.n}</strong><h3>{p.title}</h3><p>{p.text}</p></div>)}</div>
-      </section>
+              <button
+                type="button"
+                className="cert-nav-btn cert-nav-next"
+                onClick={() => setLightboxIndex((lightboxIndex + 1) % certifications.length)}
+                aria-label="Next certificate"
+              >
+                <ChevronRight style={{ width: 24, height: 24 }} />
+              </button>
+            </div>
 
-      <section className="stack">
-        <span className="reveal">TECHNICAL SKILLS</span>
-        <div className="stack-grid">{stack.map((g) => <div className="stack-col reveal" key={g.group}><h3>{g.group}</h3>{g.items.map((i) => <p key={i}>{i}</p>)}</div>)}</div>
-      </section>
+            <div className="cert-modal-footer">
+              <div>
+                <h3>{currentCert.title}</h3>
+                <p>{currentCert.issuer} · {currentCert.year}</p>
+              </div>
+              <span className="cert-modal-tip">Tip: Use ← → keys to browse, ESC to close</span>
+            </div>
+          </div>
+        </div>
+      )}
 
-      <section className="profiles">
-        <div className="profiles-head reveal"><span>CODING PROFILES</span><h2>Find me online.</h2></div>
-        <div className="profiles-grid">{profiles.map(([label, url]) => <a className="reveal" key={label} href={url} target="_blank" rel="noreferrer"><span>{label}</span><ArrowUpRight /></a>)}</div>
-      </section>
-
-      <section className="skill-reel"><div>REACT · TYPESCRIPT · PYTHON · FASTAPI · LANGCHAIN · NODE.JS · MONGODB · SQL · GO · DOCKER ·&nbsp;</div><div aria-hidden="true">REACT · TYPESCRIPT · PYTHON · FASTAPI · LANGCHAIN · NODE.JS · MONGODB · SQL · GO · DOCKER ·&nbsp;</div></section>
-    </main>
-
-    <section id="contact" className="archive-outro">
-      <div className="view-overlay" aria-hidden="true" />
-      <p>AVAILABLE FOR SOFTWARE ENGINEERING OPPORTUNITIES</p>
-      <a href="mailto:kc893825@gmail.com">LET’S<br/>BUILD.<ArrowUpRight/></a>
-      <div className="contact-links"><a className="view-btn" href="mailto:kc893825@gmail.com">kc893825@gmail.com</a><a className="view-btn" href="tel:+917569055938">+91 75690 55938</a><a className="view-btn" href="/Mudavath_Kumar_Resume-.pdf" target="_blank" rel="noreferrer">DOWNLOAD RÉSUMÉ</a></div>
-      <footer><span>MUDAVATH KUMAR</span><a href="https://github.com/Mudavath-kumar" target="_blank" rel="noreferrer">GITHUB</a><a href="https://linkedin.com/in/mudavath-kumar-mudavath-kumar" target="_blank" rel="noreferrer">LINKEDIN</a></footer>
-    </section>
-
-    <div ref={certificatePreview} className={`certificate-preview ${activeCertificate !== null ? "is-visible" : ""}`} aria-hidden="true">
-      <div className="certificate-preview-media">
-        {certifications.map((item, index) => <img key={item.title} src={item.image} alt="" loading="lazy" className={index === activeCertificate ? "is-active" : ""} />)}
-        <div className="certificate-preview-shade" />
-      </div>
-      <span>{activeCertificate !== null ? certifications[activeCertificate]?.title : ""}</span>
+      {/* Floating Back to Top button */}
+      <button
+        type="button"
+        className={`back-to-top-btn ${showBackToTop ? "is-shown" : ""}`}
+        onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+        aria-label="Back to top"
+      >
+        <ArrowUp style={{ width: 18, height: 18 }} />
+      </button>
     </div>
-  </div>;
+  );
 }
